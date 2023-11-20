@@ -5,11 +5,29 @@
 .home-page{
     display:flex;
     flex-direction: column;
+    gap: 50px;
+    justify-content: space-around;
 }
 .head{
     display:flex;
+    justify-content: space-between;
+    margin-left: 25px;
+  align-items: center;
+    
 }
-.moveis{
+.movies{
     display: flex;
     justify-content: space-between;
+    flex-wrap:wrap ;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.movies div{
+    width: 150px;
+    height: 250px;
+}
+.movies div img{
+    
 }
