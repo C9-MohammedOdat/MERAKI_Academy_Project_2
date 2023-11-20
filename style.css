@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.home-page{
+    display:flex;
+    flex-direction: column;
+}
+.head{
+    display:flex;
+}
+.moveis{
+    display: flex;
+    justify-content: space-between;
+}
