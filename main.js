@@ -120,11 +120,12 @@ const movies = [
     year: 2023,
   },
 ];
+const favorite=[];
 const moviesList = $(".movies");
 const images=$(".images")
 movies.forEach((ele, i) => {
   const movie = $(`<div class="poster">
-    <div id="poster-img"><img src=${ele.imageSrc}></div>
+    <div id="poster-img"></i><img src=${ele.imageSrc}></div>
     <div class="poster-info">
     <div id="poster-name">
     <p>${ele.movieName}</p>
@@ -137,3 +138,13 @@ movies.forEach((ele, i) => {
 
   moviesList.append(movie);
 });
+let i=1;
+let image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
+
+images.append(image)
+const reImage=()=>{
+i++
+image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
+images.append(image)
+}
+image.on(reImage)
