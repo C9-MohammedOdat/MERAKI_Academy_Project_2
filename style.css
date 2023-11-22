@@ -12,7 +12,7 @@ body {
   gap: 50px;
   justify-content: space-around;
 }
-.head,.favorite-head,.description-head {
+.head{
   background-color: rgba(38, 35, 35, 0.816);
   display: flex;
   justify-content: space-between;
@@ -21,13 +21,11 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-#web-name {
+#home {
+  cursor: pointer;
+  color: white;
   font-size: 2em;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-}
-#home {
-  text-decoration: none;
-  color: white;
 }
 #search-bar {
   height: 35px;
@@ -37,21 +35,17 @@ body {
   font-size: 1.2em;
 }
 #favorite {
-  width: 75px;
-  height: 50px;
+  font-size: 1.3em;
+  color: white;
+  font-weight: bold;
+  align-self: center;
+  cursor: pointer;
+}
+#sign-in {
   font-size: 1.3em;
   align-self: center;
   color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-#sign-in {
-  width: 75px;
-  height: 50px;
-  font-size: 1.3em;
-  align-items: center;
-  color: white;
-  text-decoration: none;
+  cursor: pointer;
   font-weight: bold;
 }
 #register {
@@ -123,10 +117,6 @@ body {
     flex-wrap: wrap;
     padding: 20px;
   }
-  .favorite-buttons {
-    display: flex;
-    gap: 20px;
-  }
   .favorite-movies div.favorite-poster {
     width: 200px;
     height: 400px;
@@ -145,6 +135,4 @@ body {
   }
   .favorite-poster-info {
     display: flex;
-  
-    /* flex-direction: column; */
   }

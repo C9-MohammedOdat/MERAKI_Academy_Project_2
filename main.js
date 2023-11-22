@@ -124,9 +124,11 @@ const favorite=[];
 const moviesList = $(".movies");
 const images=$(".images")
 const favoriteMovies=$(".favorite-movies")
-const goToFavorite=$(".favorite")
+const goToFavorite=$("#favorite")
+const goToHome=$("#home")
 const homePage=$(".home-page")
 const favoritePage=$(".favorite-page")
+const descriptionPage=$(".description-page")
 const aboutMovie=$(".about-movie")
 let i=0;
 const rendier=()=>{
@@ -167,11 +169,31 @@ movies.forEach((ele, i) => {
   movie.on("click",()=>{
     const moviePic=$(`<div id="pic"><img src=${ele.imageSrc}></div>`)
     const information=$(`<div id="information"><p>${ele.description}</p></div>`)
-aboutMovie.append(moviePic)
+    aboutMovie.html("")
+    aboutMovie.append(moviePic)
 aboutMovie.append(information)
+homePage.hide()
+favoritePage.hide()
+descriptionPage.show()
+rendier()
   })
-});
+})
+;
+const remove=$(".remove")
+remove.on("click",(e)=>{
+const delMovie=favorite.find(({id})=>id==e.target.id);
+   favorite.forEach((ele,i)=>{
+    if (ele===delMovie){
+      favorite.splice(i,1)
+    }
+    rendierFavorite()
 
+   })
+    favoriteMovies.html("")
+    rendierFavorite()
+    favoritePage.hide()
+    descriptionPage.hide()
+});
 const add=$(".add")
 add.on("click",(e)=>{
 const favMovie=movies.find(({id})=>id==e.target.id);
@@ -180,6 +202,8 @@ const favMovie=movies.find(({id})=>id==e.target.id);
     }
     favoriteMovies.html("")
     rendierFavorite()
+    favoritePage.hide()
+    descriptionPage.hide()
 });
 // let image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
 
@@ -191,11 +215,18 @@ const favMovie=movies.find(({id})=>id==e.target.id);
 // }
 // image.on("click",reImage)
 
-}
-
+  }
+goToHome.on("click",()=>{
+  descriptionPage.hide()
+  favoritePage.hide()
+  // homePage.html("")
+  rendier()
+  homePage.show()
+})
 goToFavorite.on("click",()=>{
   homePage.hide()
+  descriptionPage.hide()
   favoritePage.show()
-  rendierFavorite()
     })
+
 rendier()
