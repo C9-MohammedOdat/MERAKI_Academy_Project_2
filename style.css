@@ -1,100 +1,150 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-    background-color:black;
-    color: white;
+body {
+  background-color: rgba(0, 0, 0, 0.912);
+  color: white;
 }
-.home-page{
-    display:flex;
-    flex-direction: column;
-    gap: 50px;
-    justify-content: space-around;
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: space-around;
 }
-.head{
-    background-color: rgba(38, 35, 35, 0.816);
-    display:flex;
-    justify-content: space-around;
+.head,.favorite-head,.description-head {
+  background-color: rgba(38, 35, 35, 0.816);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 100px;
-    
+  padding-left: 15px;
+  padding-right: 15px;
 }
-#web-name{
-    font-size:2em ;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+#web-name {
+  font-size: 2em;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-#home{
-    text-decoration: none;
-    color: white;
+#home {
+  text-decoration: none;
+  color: white;
 }
-#search-bar{
-    height: 35px;
-    width: 250px;
-    background-color:hwb(0 14% 85% / 0.974) ;
-    border: 1px solid white;
-    font-size: 1.2em;
+#search-bar {
+  height: 35px;
+  width: 250px;
+  background-color: hwb(0 14% 85% / 0.974);
+  border: 1px solid white;
+  font-size: 1.2em;
 }
-#favorite{
-    width: 75px;
-    height: 50px;
-    font-size: 1.3em;
-    align-items:center;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+#favorite {
+  width: 75px;
+  height: 50px;
+  font-size: 1.3em;
+  align-self: center;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
-#sign-in{
-    width: 75px;
-    height: 50px;
-    font-size: 1.3em;
-    align-items:center;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+#sign-in {
+  width: 75px;
+  height: 50px;
+  font-size: 1.3em;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
-#register{
-    border-radius: 15px;
-    width: 85px;
-    height: 50px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
+#register {
+  border-radius: 15px;
+  width: 85px;
+  height: 50px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
 }
 .movies{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap:wrap ;
-    row-gap:inherit;
+  display: flex;
+  justify-content:start;
+  align-items: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+  padding: 20px;
 }
-.buttons{
-    display: flex;
-    justify-items: space-between;
-    gap: 20px;;
+.buttons {
+  display: flex;
+  gap: 20px;
 }
-.movies div{
-    width: 200px;
-    height: 350px;
+.movies div.poster {
+  width: 200px;
+  height: 400px;
+  position: relative;
 }
-.movies div img{
-        width: 100%;
-        height: 100%; 
-        object-fit: cover;
-}
-#search-bar{
-    border-radius: 10px;
-}
-.poster-info{
-    display: flex;
-    /* flex-direction: column; */
-}
-.images{
-    width:100%;
-   
-    
-}
-#mid{
-    height: 400px;
+
+#poster-img {
     width: 100%;
-    /* object-fit: cover; */
+    height: 300px;
+    margin-bottom: 10px;
 }
+#poster-img img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#search-bar {
+  border-radius: 10px;
+}
+
+.poster-info {
+  display: flex;
+
+  /* flex-direction: column; */
+}
+
+.images {
+  width: 100%;
+}
+
+#mid {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+#add-to-favorite {
+  position: absolute;
+  top: 0;
+}
+.favorite-movies {
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    gap: 3vw;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  .favorite-buttons {
+    display: flex;
+    gap: 20px;
+  }
+  .favorite-movies div.favorite-poster {
+    width: 200px;
+    height: 400px;
+    position: relative;
+  }
+  
+  #favorite-poster-img {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+  }
+  #favorite-poster-img img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .favorite-poster-info {
+    display: flex;
+  
+    /* flex-direction: column; */
+  }

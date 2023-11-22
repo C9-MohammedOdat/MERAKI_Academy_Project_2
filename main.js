@@ -123,28 +123,79 @@ const movies = [
 const favorite=[];
 const moviesList = $(".movies");
 const images=$(".images")
+const favoriteMovies=$(".favorite-movies")
+const goToFavorite=$(".favorite")
+const homePage=$(".home-page")
+const favoritePage=$(".favorite-page")
+const aboutMovie=$(".about-movie")
+let i=0;
+const rendier=()=>{
+ 
+  const rendierFavorite=()=>{
+    favorite.forEach((ele,i)=>{
+      const listOfFavorite=$(`<div class="favorite-poster">
+      <div id="favorite-poster-img"></i><img src=${ele.imageSrc}></div>
+      <div class="favorite-poster-info">
+      <div id="favorite-poster-name">
+      <p>${ele.movieName}</p>
+      <div id="movies-year">
+      <p>${ele.year}</p></div>
+      </div>
+      <div id="remove-from-favorite"><button class="remove" id=${ele.id}>remove</button></div>
+      </div>
+      </div>`)
+      favoriteMovies.append(listOfFavorite)
+    })
+  }
+  rendierFavorite()
 movies.forEach((ele, i) => {
   const movie = $(`<div class="poster">
-    <div id="poster-img"></i><img src=${ele.imageSrc}></div>
+    <div id="poster-img"><img src=${ele.imageSrc}></div>
     <div class="poster-info">
     <div id="poster-name">
     <p>${ele.movieName}</p>
     <div id="movies-year">
     <p>${ele.year}</p></div>
+    <div><p>Type: ${ele.type}</p></div>
     </div>
+    <div id="add-to-favorite"><button class="add" id=${ele.id}>Add</button></div>
     </div>
-    <div></div>
     </div>`);
 
   moviesList.append(movie);
+  // const about=$("#poster-img")
+  movie.on("click",()=>{
+    const moviePic=$(`<div id="pic"><img src=${ele.imageSrc}></div>`)
+    const information=$(`<div id="information"><p>${ele.description}</p></div>`)
+aboutMovie.append(moviePic)
+aboutMovie.append(information)
+  })
 });
-let i=1;
-let image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
 
-images.append(image)
-const reImage=()=>{
-i++
-image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
-images.append(image)
+const add=$(".add")
+add.on("click",(e)=>{
+const favMovie=movies.find(({id})=>id==e.target.id);
+    if(!favorite.includes(favMovie)){
+      favorite.push(favMovie)
+    }
+    favoriteMovies.html("")
+    rendierFavorite()
+});
+// let image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
+
+// images.append(image)
+// const reImage=()=>{
+// i++
+// image=$(`<img id="mid" src=${movies[i].imageSrc}>`)
+// rendier()
+// }
+// image.on("click",reImage)
+
 }
-image.on(reImage)
+
+goToFavorite.on("click",()=>{
+  homePage.hide()
+  favoritePage.show()
+  rendierFavorite()
+    })
+rendier()
