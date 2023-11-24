@@ -164,5 +164,21 @@ height: 35px;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
   }
-
+.about-movie{
+  margin: 25px;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ gap: 50px;
  
+}
+#pic img{
+  float: right;
+}
+#pic p{
+  line-height: 1.5;
+  justify-self: center;
+  font-size:x-large;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  align-items: center;
+}
