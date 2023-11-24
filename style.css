@@ -32,7 +32,11 @@ body {
   width: 250px;
   background-color: hwb(0 14% 85% / 0.974);
   border: 1px solid white;
-  font-size: 1.2em;
+  position: relative;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: larger;
+  color: white;
 }
 #favorite {
   font-size: 1.3em;
@@ -88,10 +92,15 @@ body {
   height: 100%;
 }
 
-#search-bar {
-  border-radius: 10px;
+#search{
+  position: relative;
 }
-
+#search-btn{
+  position: absolute;
+  right: 0;
+  top: 15px;
+  z-index: 1;
+}
 .poster-info {
   display: flex;
 
