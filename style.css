@@ -42,6 +42,8 @@ body {
   color: white;
 }
 #favorite {
+  /* width: 100%; */
+  height: 100%;
   font-size: 1.3em;
   color: white;
   font-weight: bold;
@@ -203,11 +205,3 @@ height: 25px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   align-items: center;
 }
-/* #search-result-poster-img img{
-  position: relative;
-}
-.test svg{
-  position: absolute;
-  z-index: 2;
-  top: 0;
-} */
