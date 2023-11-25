@@ -45,7 +45,7 @@ body {
   font-size: 1.3em;
   color: white;
   font-weight: bold;
-  align-self: center;
+  align-items: center;
   cursor: pointer;
 }
 #favorite:hover{
@@ -181,9 +181,9 @@ height: 35px;
   }
   .remove{
     cursor: pointer;
-    color: red;
+    color: rgb(179, 56, 56);
     width: 50px;
-height: 35px;
+height: 25px;
   }
 .about-movie{
   margin: 25px;
@@ -203,3 +203,11 @@ height: 35px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   align-items: center;
 }
+/* #search-result-poster-img img{
+  position: relative;
+}
+.test svg{
+  position: absolute;
+  z-index: 2;
+  top: 0;
+} */

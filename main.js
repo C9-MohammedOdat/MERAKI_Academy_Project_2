@@ -1,3 +1,17 @@
+const apiMovies=$.ajax({
+  url:"https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
+  success: (data)=>{
+console.log(data);
+// renderHomePage(data.results)
+  },
+  error: (err)=>{
+    console.log(err);
+  }
+})
+setTimeout(() => {
+const apiFilm=apiMovies.responseJSON.results
+  console.log(apiFilm);
+
 const movies = [
   {
     id: 1,
@@ -130,7 +144,7 @@ const movies = [
     year: 2023,
   },
 ];
-const favorite = [];
+const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
 const moviesList = $(".movies");
 const images = $(".images");
 const favoriteMovies = $(".favorite-movies");
@@ -144,16 +158,17 @@ const body = $("body");
 const searchPage = $(".search-page");
 const searchBar = $("#search-bar");
 const searchBtn = $("#search-btn");
-const renderHomePage = () => {
-  movies.forEach((ele, i) => {
+const renderHomePage = (movies) => {
+  moviesList.html("")
+  apiFilm.forEach((ele, i) => {
     const movie = $(`<div class="poster">
-      <div id="poster-img"><img class="movieImage ${ele.id}" src=${ele.imageSrc}></div>
+      <div id="poster-img"><img class="movieImage ${ele.id}" src=${ele.poster_path}></div>
       <div class="poster-info">
       <div id="poster-name">
-      <p>${ele.movieName}</p>
+      <p>${ele.title}</p>
       <div id="movies-year">
-      <p>${ele.year}</p></div>
-      <div><p>${ele.type} Film</p></div>
+      <p>${ele.relese_date}</p></div>
+      <div><p>${ele.genre_ids["0"]} Film</p></div>
       </div>
       <div id="add-to-favorite" class="test" title="Add to favorite" ><svg class="add ${ele.id}"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
       <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
@@ -164,25 +179,27 @@ const renderHomePage = () => {
     moviesList.append(movie);
     const movieImage = $(".movieImage");
     movieImage.on("click", function (e) {
-      const findObject = movies.find(({ id }) => id == this.classList[1]);
+      const findObject = apiFilm.find(({ id }) => id == this.classList[1]);
       renderDescriptionPage(findObject);
     });
     const add = $(`.add`);
     add.on("click", function (e) {
-      const favMovie = movies.find(({ id }) => id == this.classList[1]);
+      const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
       if (!favorite.includes(favMovie)) {
         favorite.push(favMovie);
+        let toString = JSON.stringify(favorite);
+        localStorage.setItem("favorite", toString);
       }
     });
   });
 };
 
 const renderDescriptionPage = (ele) => {
-  const moviePic = $(`<div><h1>${ele.movieName}</h1></div>
-  <div>${ele.trailer}</div>
-  <div><h1 style="border-bottom:2px solid white">About ${ele.movieName} :</h1></div>
-  <div id="pic"><p><img src=${ele.imageSrc}>
-${ele.description}</div>`);
+  const moviePic = $(`<div><h1>${ele.title}</h1></div>
+  <div>${ele.video}</div>
+  <div><h1 style="border-bottom:2px solid white">About ${ele.title} :</h1></div>
+  <div id="pic"><p><img src=${ele.poster_path}>
+${ele.overview}</div>`);
   aboutMovie.html("");
   aboutMovie.append(moviePic);
   homePage.hide();
@@ -190,17 +207,16 @@ ${ele.description}</div>`);
   descriptionPage.show();
 };
 const rendierFavorite = () => {
-  console.log(favorite);
   favoriteMovies.html("");
   favorite.forEach((ele, i) => {
     const listOfFavorite = $(`<div class="favorite-poster">
-    <div id="favorite-poster-img"></i><img class="movieImage ${ele.id}" src=${ele.imageSrc}></div>
+    <div id="favorite-poster-img"></i><img class="movieImage ${ele.id}" src=${ele.poster_path}></div>
     <div class="favorite-poster-info">
     <div id="favorite-poster-name">
-    <p>${ele.movieName}</p>
+    <p>${ele.title}</p>
     <div id="movies-year">
-    <p>${ele.year}</p></div>
-      <div><p>${ele.type} Film</p></div>
+    <p>${ele.release_date}</p></div>
+      <div><p>${ele.genre_ids["0"]} Film</p></div>
       </div>
     <div id="remove-from-favorite" title="Remove From Favorite"><svg class="remove ${ele.id}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
@@ -211,14 +227,10 @@ const rendierFavorite = () => {
     favoritePage.append(favoriteMovies);
     const remove = $(".remove");
     remove.on("click", function (e) {
-      const delMovie = movies.find(({ id }) => id == this.classList[1]);
-      favorite.forEach((ele, i) => {
-        if (ele === delMovie) {
-          favorite.splice(i, 1);
-        }
-      });
+      favorite.splice(i, 1);
+      let toString = JSON.stringify(favorite);
+      localStorage.setItem("favorite", toString);
       rendierFavorite();
-
       descriptionPage.hide();
     });
   });
@@ -230,62 +242,30 @@ const rendierFavorite = () => {
   });
 };
 
-$(window).on("load", renderHomePage);
-
-const search = () => {
-  for (let i = 0; i < movies.length; i++) {
-    if (
-      movies[i].movieName.toLowerCase().includes(searchBar.val().toLowerCase())
-    ) {
-      return movies[i];
-    }
-  }
-  return "No result";
-};
+$(window).on("load", renderHomePage(movies));
 searchBtn.on("click", () => {
-  searchPage.html("");
-  if (search() != "No result") {
-    let searchResult = $(`<div class="search-result-poster">
-<div id="search-result-poster-img"></i><img class="movieImage ${
-      search().id
-    }" src=${search().imageSrc}></div>
-<div class="search-result-poster-info">
-<div id="search-result-poster-name">
-<p>${search().movieName}</p>
-<div id="movies-year">
-<p>${search().year}</p></div>
-  <div><p>${search().type} Film</p></div>
-  </div>
-</div>
-</div>`);
-    searchPage.append(searchResult);
-  } else {
-    let searchResult = $(`<div id="no-result">No resulte</div>`);
-    searchPage.append(searchResult);
-  }
-  homePage.hide();
-  descriptionPage.hide();
-  favoritePage.hide();
-  searchPage.show();
-  const movieImage = $(".movieImage");
-  movieImage.on("click", function (e) {
-    const findObject = movies.find(({ id }) => id == this.classList[1]);
-    searchPage.html("");
-    renderDescriptionPage(findObject);
-  });
-  const add = $(`.add`);
-  add.on("click", function (e) {
-    const favMovie = movies.find(({ id }) => id == this.classList[1]);
-    if (!favorite.includes(favMovie)) {
-      favorite.push(favMovie);
+  const filterMovies=apiFilm.filter((ele,i)=>{
+    return ( ele.title.toLowerCase().includes(searchBar.val().toLowerCase()))
+  })
+  if(filterMovies.length != 0){
+  renderHomePage(filterMovies)
+    searchBar.val("");}
+    else {
+      const noResult=$(`<div><h3>No Result</h3></div>`)
+      searchPage.append(noResult);
+      homePage.hide()
+      favoritePage.hide()
+      descriptionPage.hide()
+    searchBar.val("");
+    searchPage.show()
     }
-  });
-  searchBar.val("");
 });
 goToHome.on("click", () => {
+  moviesList.html("")
   descriptionPage.hide();
   favoritePage.hide();
   homePage.show();
+  renderHomePage(apiFilm)
 });
 
 goToFavorite.on("click", () => {
@@ -296,3 +276,4 @@ goToFavorite.on("click", () => {
 
   rendierFavorite();
 });
+}, 2000);
