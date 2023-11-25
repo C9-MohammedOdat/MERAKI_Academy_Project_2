@@ -32,7 +32,7 @@ body {
 }
 #search-bar {
   height: 35px;
-  width: 250px;
+  width: 400px;
   background-color: hwb(0 14% 85% / 0.974);
   border: 1px solid white;
   position: relative;
@@ -95,6 +95,7 @@ body {
     margin-bottom: 10px;
 }
 #poster-img img {
+  border-radius: 15px;
   cursor: pointer;
   position: relative;
   width: 100%;
@@ -194,6 +195,7 @@ height: 25px;
  
 }
 #pic img{
+  border-radius: 15px;
   float: right;
 }
 #pic p{
@@ -201,5 +203,8 @@ height: 25px;
   justify-self: center;
   font-size:x-large;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  align-items: center;
+}
+.filter-genres{
   align-items: center;
 }
