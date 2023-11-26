@@ -2,7 +2,7 @@
 $.ajax({
   url:"https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
   success: (data)=>{
-    const genres=$.ajax({
+$.ajax({
       url:"https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
       success:(data_1)=>{
         const apiGenres=data_1.genres.reduce((acc,ele,i)=>{
@@ -25,6 +25,7 @@ $.ajax({
     const searchBar = $("#search-bar");
     const searchBtn = $("#search-btn");
     const filterSelect=$("#genres")
+    const filterBtn=$("#filter-btn")
     const renderHomePage = (movies) => {
       moviesList.html("")
       apiFilm.forEach((ele, i) => {
@@ -63,9 +64,25 @@ $.ajax({
         const genresOptions=$(`<option>${ele.name}</option>`)
         filterSelect.append(genresOptions)
       })
+     
 
     };
-    
+     filterBtn.on("click",()=>{
+        if (filterSelect.val()==="All"){
+          filterSelect.html("")
+          moviesList.html("")
+          renderHomePage(apiFilm)
+        }
+        else {
+          const filteredFilm=apiFilm.filter((ele,i)=>{
+          return (filterSelect.val()===apiGenres[ele.genre_ids["0"]]) 
+          })
+          console.log(filteredFilm);
+          filterSelect.html("")
+          moviesList.html("")
+          renderHomePage(filteredFilm);
+        }
+      })
     const renderDescriptionPage = (ele) => {
       const moviePic = $(`<div><h1>${ele.title}</h1></div>
       <div>${ele.video}</div>
