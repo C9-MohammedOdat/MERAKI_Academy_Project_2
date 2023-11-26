@@ -66,6 +66,7 @@ $.ajax({
         });
       });
       const all=$(`<option>All</option>`)
+      filterSelect.append(all)
       data_1.genres.forEach((ele,i)=>{
         const genresOptions=$(`<option>${ele.name}</option>`)
         filterSelect.append(genresOptions)
@@ -100,6 +101,7 @@ $.ajax({
      filterBtn.on("click",()=>{
         if (filterSelect.val()==="All"){
           filterSelect.html("")
+          pages.html("")
           moviesList.html("")
          return renderHomePage(apiFilm)
         }
@@ -109,6 +111,7 @@ $.ajax({
           })
           console.log(filteredFilm);
           filterSelect.html("")
+          pages.html("")
           moviesList.html("")
           return renderHomePage(filteredFilm);
         }
@@ -180,7 +183,8 @@ $.ajax({
         }
     });
     goToHome.on("click", () => {
-      moviesList.html("")
+      pages.html("")
+          moviesList.html("")
       descriptionPage.hide();
       favoritePage.hide();
       homePage.show();
