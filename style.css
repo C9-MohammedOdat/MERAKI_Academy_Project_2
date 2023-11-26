@@ -26,6 +26,7 @@ body {
   color: white;
   font-size: 2em;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  text-shadow:4px 4px 10px gray ;
 }
 #home:hover{
   color: gray;
@@ -45,8 +46,9 @@ body {
   font-size: 1.3em;
   color: white;
   font-weight: bold;
-  align-items: center;
+  text-shadow: 2px 2px 5px red;
   cursor: pointer;
+  align-self: center;
 }
 #favorite:hover{
   color: gray;
@@ -56,6 +58,7 @@ body {
   align-self: center;
   color: white;
   cursor: pointer;
+  text-shadow:4px 4px 5px gray ;
   font-weight: bold;
 }
 #sign-in:hover{
@@ -67,6 +70,7 @@ body {
   height: 50px;
   font-size: 1em;
   font-weight: bold;
+  box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
 .movies{
@@ -214,4 +218,25 @@ height: 25px;
 #genres{
   align-self:center ;
   width: 60px;
+}
+#genres:hover{
+  box-shadow: 1px 1px 1px rgb(4, 4, 4);
+}
+.filter{
+  align-self: center;
+  height: 100%;
+  display: flex;
+}
+option,select{
+  color: white;
+  background-color: rgb(9, 9, 9)
+}
+.page-change{
+justify-content: center;
+  display: flex;
+  justify-self: center;
+}
+#filter-btn{
+  background-color: black;
+  color: white;
 }

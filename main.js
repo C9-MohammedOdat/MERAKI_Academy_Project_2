@@ -1,6 +1,7 @@
-
+let y=1;
+let i=1;
 $.ajax({
-  url:"https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
+  url:`https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
   success: (data)=>{
 $.ajax({
       url:"https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
@@ -9,6 +10,7 @@ $.ajax({
           acc[ele.id]=ele.name
           return acc
          },{})
+        
     const apiFilm =  data.results
     const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
     const moviesList = $(".movies");
@@ -26,6 +28,9 @@ $.ajax({
     const searchBtn = $("#search-btn");
     const filterSelect=$("#genres")
     const filterBtn=$("#filter-btn")
+    const pages=$(".page-btn")
+    const left =$("#left")
+    const right =$("#right")
     const renderHomePage = (movies) => {
       moviesList.html("")
       apiFilm.forEach((ele, i) => {
@@ -60,18 +65,43 @@ $.ajax({
           }
         });
       });
+      const all=$(`<option>All</option>`)
       data_1.genres.forEach((ele,i)=>{
         const genresOptions=$(`<option>${ele.name}</option>`)
         filterSelect.append(genresOptions)
       })
-     
+      for( let i=1;i<11;i++){
+        const pageBtn=$(`<button>${i}</button>`)
+        pages.append(pageBtn)
+       }
+      //  left.on("click",()=>{
+      // if(i===1){
+      //   moviesList.html("")
+      // pages.html("")
+      // renderHomePage(apiFilm)
+      // }
+      // else{
+      // i=i-5
+      // console.log(i);
+      // moviesList.html("")
+      // pages.html("")
+      // renderHomePage(apiFilm)
 
+      // }
+      //  })
+      // right.on("click",()=>{
+      // i=i+0
+      // pages.html("")
+      // moviesList.html("")
+      // console.log(i);
+      // renderHomePage(apiFilm) 
+      // });
     };
      filterBtn.on("click",()=>{
         if (filterSelect.val()==="All"){
           filterSelect.html("")
           moviesList.html("")
-          renderHomePage(apiFilm)
+         return renderHomePage(apiFilm)
         }
         else {
           const filteredFilm=apiFilm.filter((ele,i)=>{
@@ -80,7 +110,7 @@ $.ajax({
           console.log(filteredFilm);
           filterSelect.html("")
           moviesList.html("")
-          renderHomePage(filteredFilm);
+          return renderHomePage(filteredFilm);
         }
       })
     const renderDescriptionPage = (ele) => {
