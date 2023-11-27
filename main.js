@@ -1,12 +1,25 @@
+let index;
+let apiFilm;
+let y = 1
+ let apiGenres;
+ let samples =[];
+ const render = ()=>{
 
-const render=(y)=>{
+ 
   $.ajax({
   url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
   success: (data) => {
     $.ajax({
       url: "https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
       success: (data_1) => {
-        render_1(data, data_1);
+        
+        samples =data_1.genres
+  apiFilm =data.results;
+   apiGenres = data_1.genres.reduce((acc, ele, i) => {
+    acc[ele.id] = ele.name;
+    return acc;
+  }, {});
+  renderHomePage()
       },
       error: (err) => {},
     });
@@ -15,13 +28,16 @@ const render=(y)=>{
     console.log(err);
   },
 });
-const render_1 = (data, data_1) => {
-  const apiGenres = data_1.genres.reduce((acc, ele, i) => {
-    acc[ele.id] = ele.name;
-    return acc;
-  }, {});
+}
+render()
+
+
+// const render_1 = (data, data_1) => {
+  
+// };
+// render_1()
  const users= JSON.parse(localStorage.getItem("users")) || [];
-  const apiFilm = data.results;
+ 
   const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
   const moviesList = $(".movies");
   const images = $(".images");
@@ -58,11 +74,12 @@ const render_1 = (data, data_1) => {
   const signInEmail=$("#input-email")
   const signInpassword=$("#input-password")
   const signInBtn=$("#sign-in-btn")
-  const renderHomePage = (movies) => {
+  let signedInUser=null;
+  const renderHomePage = () => {
     signInPage.hide();
     registerPage.hide();
     moviesList.html("");
-    movies.forEach((ele, i) => {
+    apiFilm.forEach((ele, i) => {
       const movie = $(`<div class="poster">
           <div id="poster-img"><img class="movieImage ${ele.id}" src=${
         "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
@@ -91,16 +108,28 @@ const render_1 = (data, data_1) => {
       const add = $(`.add`);
       add.on("click", function (e) {
         const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
-        if (!favorite.includes(favMovie)) {
+        console.log(favorite.includes(favMovie))
+        console.log(users)
+        console.log(users[index])
+       
+        
+        if (!favorite.includes(favMovie)&&users[index].signedIn) {
           favorite.push(favMovie);
           let toString = JSON.stringify(favorite);
           localStorage.setItem("favorite", toString);
+        }else{
+          homePage.hide()
+          signInPage.show()
+          head.hide()
+          searchPage.hide()
+          favoritePage.hide()
+          descriptionPage.hide()
         }
       });
     });
     const all = $(`<option>All</option>`);
     filterSelect.append(all);
-    data_1.genres.forEach((ele, i) => {
+    samples.forEach((ele, i) => {
       const genresOptions = $(`<option>${ele.name}</option>`);
       filterSelect.append(genresOptions);
     });
@@ -109,50 +138,30 @@ const render_1 = (data, data_1) => {
       pages.append(pageBtn);
       pageBtn.on("click",()=>{
         pages.html("")
-        render(i)
+        y =i
+        render()
       })
     }
-    //  left.on("click",()=>{
-    // if(i===1){
-    //   moviesList.html("")
-    // pages.html("")
-    // renderHomePage(apiFilm)
-    // }
-    // else{
-    // i=i-5
-    // console.log(i);
-    // moviesList.html("")
-    // pages.html("")
-    // renderHomePage(apiFilm)
-
-    // }
-    //  })
-    // right.on("click",()=>{
-    // i=i+0
-    // pages.html("")
-    // moviesList.html("")
-    // console.log(i);
-    // renderHomePage(apiFilm)
-    // });
+    
   };
   filterSelect.on("change", () => {
     if (filterSelect.val() === "All") {
-      filterSelect.html("");
-      pages.hide()
+      // filterSelect.html("");
+      pages.show()
       pages.html("");
       moviesList.html("");
       console.log(filterSelect.val());
-      return renderHomePage(apiFilm);
+      render()
     } else {
       const filteredFilm = apiFilm.filter((ele, i) => {
         return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
       });
       console.log(filteredFilm);
-      filterSelect.html("");
+      // filterSelect.html("");
       pages.html("");
       pages.hide()
       moviesList.html("");
-      return renderHomePage(filteredFilm);
+       renderHomePage();
     }
   });
   const renderDescriptionPage = (ele) => {
@@ -172,6 +181,7 @@ const render_1 = (data, data_1) => {
     descriptionPage.show();
   };
   const rendierFavorite = () => {
+   
     favoriteMovies.html("");
     favorite.forEach((ele, i) => {
       const listOfFavorite = $(`<div class="favorite-poster">
@@ -213,15 +223,17 @@ const render_1 = (data, data_1) => {
     });
   };
 
-  $(window).on("load", renderHomePage(apiFilm));
   searchBtn.on("click", () => {
     const filterMovies = apiFilm.filter((ele, i) => {
       return ele.title.toLowerCase().includes(searchBar.val().toLowerCase());
     });
+   
+    apiFilm=filterMovies
     if (filterMovies.length != 0) {
-      renderHomePage(filterMovies);
+      renderHomePage();
       pages.hide()
       searchBar.val("");
+     
     } else {
       const noResult = $(`<div><h3>No Result</h3></div>`);
       searchPage.append(noResult);
@@ -240,7 +252,7 @@ const render_1 = (data, data_1) => {
     descriptionPage.hide();
     favoritePage.hide();
     homePage.show();
-    renderHomePage(apiFilm);
+   render()
   });
 
   goToFavorite.on("click", () => {
@@ -309,7 +321,7 @@ const render_1 = (data, data_1) => {
     if(signInEmail.val()==="" || signInpassword.val()==="" ){
       console.log("pls inceart all the field");
     }else{
-      renderSignIn(users,signInEmail.val(),signInpassword.val())
+      renderSignIn(users,signInEmail.val(),signInpassword.val(),goToFavorite,homePage,signInPage,signedInUser,head)
     }
   })
   const hideShow = (hide,show) => {
@@ -319,7 +331,7 @@ const render_1 = (data, data_1) => {
     signInPage.show();
   };
 
-};
+
 const renderRegister=(users,fName,e,pass,birth,gen)=>{
 users.forEach((ele,i)=>{
   if(ele.email===e){
@@ -337,19 +349,26 @@ signedIn:false,
 let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
 }
-const renderSignIn=(users,signInEmail,signInpassword)=>{
+const renderSignIn=(users,signInEmail,signInpassword,goToFavorite,homePage,signInPage,signedInUser,head)=>{
   users.forEach((ele,i)=>{
   if(ele.email===signInEmail && ele.password===signInpassword){
-    users.signedIn=true;
+    ele.signedIn=true;
+    index=i
+
     let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
           console.log(users.signedIn);
-          // homePage.show()
-          // signInPage.hide()
+          goToFavorite.show()
+          homePage.show()
+          signInPage.hide()
+          head.show()
   }
   })
 }
-}
-render(1);
+// $(window).on("load", renderHomePage());
+
+
+
+
 
 
