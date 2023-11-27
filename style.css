@@ -227,6 +227,7 @@ body {
 #genres {
   align-self: center;
   width: 60px;
+  border-radius: 10px;
 }
 #genres:hover {
   box-shadow: 1px 1px 1px rgb(4, 4, 4);

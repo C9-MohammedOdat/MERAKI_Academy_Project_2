@@ -1,6 +1,6 @@
-let y = 1;
-let i = 1;
-$.ajax({
+
+const render=(y)=>{
+  $.ajax({
   url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
   success: (data) => {
     $.ajax({
@@ -20,7 +20,7 @@ const render_1 = (data, data_1) => {
     acc[ele.id] = ele.name;
     return acc;
   }, {});
-
+ const users= JSON.parse(localStorage.getItem("users")) || [];
   const apiFilm = data.results;
   const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
   const moviesList = $(".movies");
@@ -39,8 +39,6 @@ const render_1 = (data, data_1) => {
   const searchBtn = $("#search-btn");
   const filterSelect = $("#genres");
   const pages = $(".page-btn");
-  const left = $("#left");
-  const right = $("#right");
   const signInPage = $(".sign-in-page");
   const registerPage = $(".register-page");
   const goToRegister = $("#register");
@@ -51,6 +49,15 @@ const render_1 = (data, data_1) => {
   const goFromSignInToRegester = $("#go-to-register");
   const fromRegisterToSignIn = $("#to-sign-in");
   const fromSignInToRegester = $("#to-register");
+  const firstName=$("#input-first-name")
+  const registerEmail=$("#register-input-email")
+  const registerPssword=$("#register-input-password")
+  const birthday=$("#birth-day")
+  const gender=$(".gender-select")
+  const registerBtn=$("#register-btn")
+  const signInEmail=$("#input-email")
+  const signInpassword=$("#input-password")
+  const signInBtn=$("#sign-in-btn")
   const renderHomePage = (movies) => {
     signInPage.hide();
     registerPage.hide();
@@ -100,6 +107,10 @@ const render_1 = (data, data_1) => {
     for (let i = 1; i < 11; i++) {
       const pageBtn = $(`<button>${i}</button>`);
       pages.append(pageBtn);
+      pageBtn.on("click",()=>{
+        pages.html("")
+        render(i)
+      })
     }
     //  left.on("click",()=>{
     // if(i===1){
@@ -127,8 +138,10 @@ const render_1 = (data, data_1) => {
   filterSelect.on("change", () => {
     if (filterSelect.val() === "All") {
       filterSelect.html("");
+      pages.hide()
       pages.html("");
       moviesList.html("");
+      console.log(filterSelect.val());
       return renderHomePage(apiFilm);
     } else {
       const filteredFilm = apiFilm.filter((ele, i) => {
@@ -137,6 +150,7 @@ const render_1 = (data, data_1) => {
       console.log(filteredFilm);
       filterSelect.html("");
       pages.html("");
+      pages.hide()
       moviesList.html("");
       return renderHomePage(filteredFilm);
     }
@@ -206,6 +220,7 @@ const render_1 = (data, data_1) => {
     });
     if (filterMovies.length != 0) {
       renderHomePage(filterMovies);
+      pages.hide()
       searchBar.val("");
     } else {
       const noResult = $(`<div><h3>No Result</h3></div>`);
@@ -215,10 +230,12 @@ const render_1 = (data, data_1) => {
       descriptionPage.hide();
       searchBar.val("");
       searchPage.show();
+      pages.hide()
     }
   });
   goToHome.on("click", () => {
     pages.html("");
+    pages.show()
     moviesList.html("");
     descriptionPage.hide();
     favoritePage.hide();
@@ -252,12 +269,14 @@ const render_1 = (data, data_1) => {
   });
   goFromRegisterToHome.on("click", () => {
 
+    pages.show()
 
     homePage.show();
     head.show();
     registerPage.hide();
   });
   goFromSignInToHome.on("click", () => {
+    pages.show()
     head.show();
     homePage.show();
     signInPage.hide();
@@ -276,13 +295,61 @@ const render_1 = (data, data_1) => {
     registerPage.show();
     signInPage.hide();
   });
-  // const hideShow = (hide,show) => {
+  registerBtn.on("click",()=>{
+    if(firstName.val()==="" ||registerEmail.val()===""
+    || registerPssword.val()==="" || birthday.val()=="" || gender.val()===""){
+      return console.log("pls inseart all info");
+    }else{
+      console.log(birthday.val());
+      renderRegister(users,firstName.val(),registerEmail.val(),registerPssword.val(),birthday.val(),gender.val())
+   console.log(users);
+    }
+  })
+  signInBtn.on("click",()=>{
+    if(signInEmail.val()==="" || signInpassword.val()==="" ){
+      console.log("pls inceart all the field");
+    }else{
+      renderSignIn(users,signInEmail.val(),signInpassword.val())
+    }
+  })
+  const hideShow = (hide,show) => {
  
 
-  //   registerPage.hide();
-  //   signInPage.show();
-  // };
-  // hideShow([registerPage],[signInPage])
+    registerPage.hide();
+    signInPage.show();
+  };
+
 };
+const renderRegister=(users,fName,e,pass,birth,gen)=>{
+users.forEach((ele,i)=>{
+  if(ele.email===e){
+    console.log("email is excesed");
+  }
+})
+users.push({
+  firstName:fName,
+  email:e,
+password:pass,
+birthday:birth,
+gender:gen,
+signedIn:false,
+})
+let toString = JSON.stringify(users);
+          localStorage.setItem("users", toString);
+}
+const renderSignIn=(users,signInEmail,signInpassword)=>{
+  users.forEach((ele,i)=>{
+  if(ele.email===signInEmail && ele.password===signInpassword){
+    users.signedIn=true;
+    let toString = JSON.stringify(users);
+          localStorage.setItem("users", toString);
+          console.log(users.signedIn);
+          // homePage.show()
+          // signInPage.hide()
+  }
+  })
+}
+}
+render(1);
 
 
