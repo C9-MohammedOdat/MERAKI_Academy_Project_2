@@ -5,8 +5,8 @@ $.ajax({
   success: (data) => {
     $.ajax({
       url: "https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
-      success: (data_1)=>{
-render_1(data,data_1)
+      success: (data_1) => {
+        render_1(data, data_1);
       },
       error: (err) => {},
     });
@@ -15,52 +15,51 @@ render_1(data,data_1)
     console.log(err);
   },
 });
-const render_1=(data,data_1) => {
-        const apiGenres = data_1.genres.reduce((acc, ele, i) => {
-          acc[ele.id] = ele.name;
-          return acc;
-        }, {});
+const render_1 = (data, data_1) => {
+  const apiGenres = data_1.genres.reduce((acc, ele, i) => {
+    acc[ele.id] = ele.name;
+    return acc;
+  }, {});
 
-        const apiFilm = data.results;
-        const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
-        const moviesList = $(".movies");
-        const images = $(".images");
-        const head=$(".head")
-        const favoriteMovies = $(".favorite-movies");
-        const goToFavorite = $("#favorite");
-        const goToHome = $("#home");
-        const homePage = $(".home-page");
-        const favoritePage = $(".favorite-page");
-        const descriptionPage = $(".description-page");
-        const aboutMovie = $(".about-movie");
-        const body = $("body");
-        const searchPage = $(".search-page");
-        const searchBar = $("#search-bar");
-        const searchBtn = $("#search-btn");
-        const filterSelect = $("#genres");
-        const pages = $(".page-btn");
-        const left = $("#left");
-        const right = $("#right");
-        const signInPage = $(".sign-in-page");
-        const registerPage = $(".register-page");
-        const goToRegister=$("#register")
-        const goToSignIn=$("#sign-in")
-        const goFromRegisterToHome=$("#go-from-register-to-home")
-        const goFromSignInToHome=$("#go-to-home")
-        const goFromRegisterToSignIn=$("#go-to-sign-in")
-        const goFromSignInToRegester=$("#go-to-register")
-        const fromRegisterToSignIn=$("#to-sign-in")
-        const fromSignInToRegester=$("#to-register")
-        const renderHomePage = (movies) => {
-          signInPage.hide()
-          registerPage.hide()
-          moviesList.html("");
-          movies.forEach((ele, i) => {
-            const movie = $(`<div class="poster">
+  const apiFilm = data.results;
+  const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
+  const moviesList = $(".movies");
+  const images = $(".images");
+  const head = $(".head");
+  const favoriteMovies = $(".favorite-movies");
+  const goToFavorite = $("#favorite");
+  const goToHome = $("#home");
+  const homePage = $(".home-page");
+  const favoritePage = $(".favorite-page");
+  const descriptionPage = $(".description-page");
+  const aboutMovie = $(".about-movie");
+  const body = $("body");
+  const searchPage = $(".search-page");
+  const searchBar = $("#search-bar");
+  const searchBtn = $("#search-btn");
+  const filterSelect = $("#genres");
+  const pages = $(".page-btn");
+  const left = $("#left");
+  const right = $("#right");
+  const signInPage = $(".sign-in-page");
+  const registerPage = $(".register-page");
+  const goToRegister = $("#register");
+  const goToSignIn = $("#sign-in");
+  const goFromRegisterToHome = $("#go-from-register-to-home");
+  const goFromSignInToHome = $("#go-to-home");
+  const goFromRegisterToSignIn = $("#go-to-sign-in");
+  const goFromSignInToRegester = $("#go-to-register");
+  const fromRegisterToSignIn = $("#to-sign-in");
+  const fromSignInToRegester = $("#to-register");
+  const renderHomePage = (movies) => {
+    signInPage.hide();
+    registerPage.hide();
+    moviesList.html("");
+    movies.forEach((ele, i) => {
+      const movie = $(`<div class="poster">
           <div id="poster-img"><img class="movieImage ${ele.id}" src=${
-              "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" +
-              ele.poster_path
-            }></div>
+        "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
+      }></div>
           <div class="poster-info">
           <div id="poster-name">
           <p>${ele.title}</p>
@@ -76,78 +75,74 @@ const render_1=(data,data_1) => {
           </div>
           </div>`);
 
-            moviesList.append(movie);
-            const movieImage = $(".movieImage");
-            movieImage.on("click", function (e) {
-              const findObject = apiFilm.find(
-                ({ id }) => id == this.classList[1]
-              );
-              renderDescriptionPage(findObject);
-            });
-            const add = $(`.add`);
-            add.on("click", function (e) {
-              const favMovie = apiFilm.find(
-                ({ id }) => id == this.classList[1]
-              );
-              if (!favorite.includes(favMovie)) {
-                favorite.push(favMovie);
-                let toString = JSON.stringify(favorite);
-                localStorage.setItem("favorite", toString);
-              }
-            });
-          });
-          const all = $(`<option>All</option>`);
-          filterSelect.append(all);
-          data_1.genres.forEach((ele, i) => {
-            const genresOptions = $(`<option>${ele.name}</option>`);
-            filterSelect.append(genresOptions);
-          });
-          for (let i = 1; i < 11; i++) {
-            const pageBtn = $(`<button>${i}</button>`);
-            pages.append(pageBtn);
-          }
-          //  left.on("click",()=>{
-          // if(i===1){
-          //   moviesList.html("")
-          // pages.html("")
-          // renderHomePage(apiFilm)
-          // }
-          // else{
-          // i=i-5
-          // console.log(i);
-          // moviesList.html("")
-          // pages.html("")
-          // renderHomePage(apiFilm)
+      moviesList.append(movie);
+      const movieImage = $(".movieImage");
+      movieImage.on("click", function (e) {
+        const findObject = apiFilm.find(({ id }) => id == this.classList[1]);
+        renderDescriptionPage(findObject);
+      });
+      const add = $(`.add`);
+      add.on("click", function (e) {
+        const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
+        if (!favorite.includes(favMovie)) {
+          favorite.push(favMovie);
+          let toString = JSON.stringify(favorite);
+          localStorage.setItem("favorite", toString);
+        }
+      });
+    });
+    const all = $(`<option>All</option>`);
+    filterSelect.append(all);
+    data_1.genres.forEach((ele, i) => {
+      const genresOptions = $(`<option>${ele.name}</option>`);
+      filterSelect.append(genresOptions);
+    });
+    for (let i = 1; i < 11; i++) {
+      const pageBtn = $(`<button>${i}</button>`);
+      pages.append(pageBtn);
+    }
+    //  left.on("click",()=>{
+    // if(i===1){
+    //   moviesList.html("")
+    // pages.html("")
+    // renderHomePage(apiFilm)
+    // }
+    // else{
+    // i=i-5
+    // console.log(i);
+    // moviesList.html("")
+    // pages.html("")
+    // renderHomePage(apiFilm)
 
-          // }
-          //  })
-          // right.on("click",()=>{
-          // i=i+0
-          // pages.html("")
-          // moviesList.html("")
-          // console.log(i);
-          // renderHomePage(apiFilm)
-          // });
-        };
-        filterSelect.on("change", () => {
-          if (filterSelect.val() === "All") {
-            filterSelect.html("");
-            pages.html("");
-            moviesList.html("");
-            return renderHomePage(apiFilm);
-          } else {
-            const filteredFilm = apiFilm.filter((ele, i) => {
-              return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
-            });
-            console.log(filteredFilm);
-            filterSelect.html("");
-            pages.html("");
-            moviesList.html("");
-            return renderHomePage(filteredFilm);
-          }
-        });
-        const renderDescriptionPage = (ele) => {
-          const moviePic = $(`<div><h1>${ele.title}</h1></div>
+    // }
+    //  })
+    // right.on("click",()=>{
+    // i=i+0
+    // pages.html("")
+    // moviesList.html("")
+    // console.log(i);
+    // renderHomePage(apiFilm)
+    // });
+  };
+  filterSelect.on("change", () => {
+    if (filterSelect.val() === "All") {
+      filterSelect.html("");
+      pages.html("");
+      moviesList.html("");
+      return renderHomePage(apiFilm);
+    } else {
+      const filteredFilm = apiFilm.filter((ele, i) => {
+        return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
+      });
+      console.log(filteredFilm);
+      filterSelect.html("");
+      pages.html("");
+      moviesList.html("");
+      return renderHomePage(filteredFilm);
+    }
+  });
+  const renderDescriptionPage = (ele) => {
+    const moviePic = $(`<div><h1>${ele.title}</h1></div>
       <div>${ele.video}</div>
       <div><h1 style="border-bottom:2px solid white">About ${
         ele.title
@@ -156,22 +151,21 @@ const render_1=(data,data_1) => {
         "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
       }>
     ${ele.overview}</div>`);
-          aboutMovie.html("");
-          aboutMovie.append(moviePic);
-          homePage.hide();
-          favoritePage.hide();
-          descriptionPage.show();
-        };
-        const rendierFavorite = () => {
-          favoriteMovies.html("");
-          favorite.forEach((ele, i) => {
-            const listOfFavorite = $(`<div class="favorite-poster">
+    aboutMovie.html("");
+    aboutMovie.append(moviePic);
+    homePage.hide();
+    favoritePage.hide();
+    descriptionPage.show();
+  };
+  const rendierFavorite = () => {
+    favoriteMovies.html("");
+    favorite.forEach((ele, i) => {
+      const listOfFavorite = $(`<div class="favorite-poster">
         <div id="favorite-poster-img"></i><img class="movieImage ${
           ele.id
         }" src=${
-              "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" +
-              ele.poster_path
-            }></div>
+        "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
+      }></div>
         <div class="favorite-poster-info">
         <div id="favorite-poster-name">
         <p>${ele.title}</p>
@@ -186,102 +180,109 @@ const render_1=(data,data_1) => {
       </svg></div>
         </div>
         </div>`);
-            favoriteMovies.append(listOfFavorite);
-            favoritePage.append(favoriteMovies);
-            const remove = $(".remove");
-            remove.on("click", function (e) {
-              favorite.splice(i, 1);
-              let toString = JSON.stringify(favorite);
-              localStorage.setItem("favorite", toString);
-              rendierFavorite();
-              descriptionPage.hide();
-            });
-          });
-          const movieImage = $(".movieImage");
-          movieImage.on("click", (e) => {
-            const findObject = favorite.find(
-              ({ id }) => id == e.target.classList[1]
-            );
+      favoriteMovies.append(listOfFavorite);
+      favoritePage.append(favoriteMovies);
+      const remove = $(".remove");
+      remove.on("click", function (e) {
+        favorite.splice(i, 1);
+        let toString = JSON.stringify(favorite);
+        localStorage.setItem("favorite", toString);
+        rendierFavorite();
+        descriptionPage.hide();
+      });
+    });
+    const movieImage = $(".movieImage");
+    movieImage.on("click", (e) => {
+      const findObject = favorite.find(({ id }) => id == e.target.classList[1]);
 
-            renderDescriptionPage(findObject);
-          });
-        };
+      renderDescriptionPage(findObject);
+    });
+  };
 
-        $(window).on("load", renderHomePage(apiFilm));
-        searchBtn.on("click", () => {
-          const filterMovies = apiFilm.filter((ele, i) => {
-            return ele.title
-              .toLowerCase()
-              .includes(searchBar.val().toLowerCase());
-          });
-          if (filterMovies.length != 0) {
-            renderHomePage(filterMovies);
-            searchBar.val("");
-          } else {
-            const noResult = $(`<div><h3>No Result</h3></div>`);
-            searchPage.append(noResult);
-            homePage.hide();
-            favoritePage.hide();
-            descriptionPage.hide();
-            searchBar.val("");
-            searchPage.show();
-          }
-        });
-        goToHome.on("click", () => {
-          pages.html("");
-          moviesList.html("");
-          descriptionPage.hide();
-          favoritePage.hide();
-          homePage.show();
-          renderHomePage(apiFilm);
-        });
+  $(window).on("load", renderHomePage(apiFilm));
+  searchBtn.on("click", () => {
+    const filterMovies = apiFilm.filter((ele, i) => {
+      return ele.title.toLowerCase().includes(searchBar.val().toLowerCase());
+    });
+    if (filterMovies.length != 0) {
+      renderHomePage(filterMovies);
+      searchBar.val("");
+    } else {
+      const noResult = $(`<div><h3>No Result</h3></div>`);
+      searchPage.append(noResult);
+      homePage.hide();
+      favoritePage.hide();
+      descriptionPage.hide();
+      searchBar.val("");
+      searchPage.show();
+    }
+  });
+  goToHome.on("click", () => {
+    pages.html("");
+    moviesList.html("");
+    descriptionPage.hide();
+    favoritePage.hide();
+    homePage.show();
+    renderHomePage(apiFilm);
+  });
 
-        goToFavorite.on("click", () => {
-          homePage.hide();
-          descriptionPage.hide();
-          favoritePage.html("");
-          favoritePage.show();
+  goToFavorite.on("click", () => {
+    homePage.hide();
+    descriptionPage.hide();
+    favoritePage.html("");
+    favoritePage.show();
 
-          rendierFavorite();
-        });
-        goToRegister.on("click",()=>{
-          homePage.hide()
-          favoritePage.hide()
-          descriptionPage.hide()
-          signInPage.hide()
-          registerPage.show()
-          head.hide()
-        })
-        goToSignIn.on("click",()=>{
-          homePage.hide()
-          favoritePage.hide()
-          descriptionPage.hide()
-          signInPage.show()
-          registerPage.hide()
-          head.hide()
-        })
-        goFromRegisterToHome.on("click",()=>{
-          homePage.show()
-          registerPage.hide()
-        })
-        goFromSignInToHome.on("click",()=>{
-          homePage.show()
-          signInPage.hide()
-        })
-        goFromRegisterToSignIn.on("click",()=>{
-          registerPage.hide()
-          signInPage.show()
-        })
-        goFromSignInToRegester.on("click",()=>{
-          registerPage.show()
-          signInPage.hide()
-        })
-        fromRegisterToSignIn.on("click",()=>{
-          registerPage.hide()
-          signInPage.show()
-        })
-        fromSignInToRegester.on("click",()=>{
-          registerPage.show()
-          signInPage.hide()
-        })
-}
+    rendierFavorite();
+  });
+  goToRegister.on("click", () => {
+    homePage.hide();
+    favoritePage.hide();
+    descriptionPage.hide();
+    signInPage.hide();
+    registerPage.show();
+    head.hide();
+  });
+  goToSignIn.on("click", () => {
+    homePage.hide();
+    favoritePage.hide();
+    descriptionPage.hide();
+    signInPage.show();
+    registerPage.hide();
+    head.hide();
+  });
+  goFromRegisterToHome.on("click", () => {
+
+
+    homePage.show();
+    head.show();
+    registerPage.hide();
+  });
+  goFromSignInToHome.on("click", () => {
+    head.show();
+    homePage.show();
+    signInPage.hide();
+  });
+  goFromRegisterToSignIn.on("click", () => {
+    hideShow();
+  });
+  goFromSignInToRegester.on("click", () => {
+    registerPage.show();
+    signInPage.hide();
+  });
+  fromRegisterToSignIn.on("click", () => {
+    hideShow();
+  });
+  fromSignInToRegester.on("click", () => {
+    registerPage.show();
+    signInPage.hide();
+  });
+  // const hideShow = (hide,show) => {
+ 
+
+  //   registerPage.hide();
+  //   signInPage.show();
+  // };
+  // hideShow([registerPage],[signInPage])
+};
+
+

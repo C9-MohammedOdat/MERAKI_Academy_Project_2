@@ -278,6 +278,7 @@ select {
 	background: linear-gradient(to top, #0d0323, #281a44)
 }
 .sign-in-head{
+  margin-top: 25px;
   margin-left: 20px;
   margin-right: 40px;
   display: flex;
@@ -335,6 +336,7 @@ select {
 	background: linear-gradient(to top, #0d0323, #281a44)
 }
 .register-head{
+  margin-top: 25px;
   margin-left: 20px;
   margin-right: 50px;
   display: flex;
