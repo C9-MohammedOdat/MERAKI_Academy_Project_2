@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 body {
   background-color: rgba(0, 0, 0, 0.912);
@@ -9,10 +10,10 @@ body {
 .home-page {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 20px;
   justify-content: space-around;
 }
-.head{
+.head {
   background-color: rgba(38, 35, 35, 0.816);
   display: flex;
   justify-content: space-between;
@@ -21,19 +22,21 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-#home {
+#home , #go-to-home {
   cursor: pointer;
   color: white;
-  font-size: 2em;
+  font-size: 3em;
+  padding: 0 10px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  text-shadow:4px 4px 10px gray ;
+  text-shadow: 4px 4px 10px gray;
+  align-self: center;
 }
-#home:hover{
+#home:hover {
   color: gray;
 }
 #search-bar {
   height: 35px;
-  width: 400px;
+  width: 300px;
   background-color: hwb(0 14% 85% / 0.974);
   border: 1px solid white;
   position: relative;
@@ -43,14 +46,14 @@ body {
   color: white;
 }
 #favorite {
-  font-size: 1.3em;
+  font-size: 1.5em;
   color: white;
   font-weight: bold;
   text-shadow: 2px 2px 5px red;
   cursor: pointer;
-  align-self: center;
+  text-align: center;
 }
-#favorite:hover{
+#favorite:hover {
   color: gray;
 }
 #sign-in {
@@ -58,10 +61,10 @@ body {
   align-self: center;
   color: white;
   cursor: pointer;
-  text-shadow:4px 4px 5px gray ;
+  text-shadow: 4px 4px 5px gray;
   font-weight: bold;
 }
-#sign-in:hover{
+#sign-in:hover {
   color: gray;
 }
 #register {
@@ -73,9 +76,9 @@ body {
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
-.movies{
+.movies {
   display: flex;
-  justify-content:start;
+  justify-content: start;
   align-items: center;
   gap: 3vw;
   flex-wrap: wrap;
@@ -90,13 +93,13 @@ body {
   height: 400px;
   position: relative;
 }
-.poster{
+.poster {
   z-index: 1;
 }
 #poster-img {
-    width: 100%;
-    height: 300px;
-    margin-bottom: 10px;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 10px;
 }
 #poster-img img {
   border-radius: 15px;
@@ -105,28 +108,28 @@ body {
   width: 100%;
   height: 100%;
 }
-#poster-img:hover{
+#poster-img:hover {
   width: 225px;
   height: 350px;
 }
-.poster:hover{
-  z-index:2 ;
+.poster:hover {
+  z-index: 2;
 }
-#search{
+#search {
   position: relative;
 }
-#search-btn{
-  margin-right:10px ;
+#search-btn {
+  margin-right: 10px;
   position: absolute;
   right: 0;
-  top: 15px;
+  top: 10px;
   z-index: 1;
   cursor: pointer;
 }
-#search-btn:hover{
+#search-btn:hover {
   color: gray;
 }
-.search-page{
+.search-page {
   margin: 50px 0 0 25px;
 }
 .poster-info {
@@ -149,120 +152,235 @@ body {
   top: 0;
 }
 .favorite-movies {
-    display: flex;
-    justify-content:start;
-    align-items: center;
-    gap: 3vw;
-    flex-wrap: wrap;
-    padding: 20px;
-  }
-  .favorite-movies div.favorite-poster {
-    width: 200px;
-    height: 400px;
-    position: relative;
-  }
-  
-  #favorite-poster-img {
-      width: 100%;
-      height: 300px;
-      margin-bottom: 10px;
-  }
-  #favorite-poster-img img {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.favorite-movies div.favorite-poster {
+  width: 200px;
+  height: 400px;
+  position: relative;
+}
+
+#favorite-poster-img {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 10px;
+}
+#favorite-poster-img img {
   border-radius: 15px;
   position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  .favorite-poster-info {
-    display: flex;
-  }
-  #favorite-poster-img:hover{
-    width: 225px;
-    height: 350px;
-  }
-  .favorite-poster:hover{
-    z-index:2 ;
-  }
-  #remove-from-favorite {
-    position: absolute;
-    top: 0;
-  }
- 
-  .add{
-    cursor: pointer;
-color: rgba(37, 35, 35, 0.996);
-width: 50px;
-height: 35px;
-
-  }
-  .add:hover{
-    color: black;
-  }
-  .remove{
-    cursor: pointer;
-    color: rgb(179, 56, 56);
-    width: 50px;
-height: 25px;
-  }
-.about-movie{
-  margin: 25px;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- gap: 50px;
- 
+  width: 100%;
+  height: 100%;
 }
-#pic img{
+.favorite-poster-info {
+  display: flex;
+}
+#favorite-poster-img:hover {
+  width: 225px;
+  height: 350px;
+}
+.favorite-poster:hover {
+  z-index: 2;
+}
+#remove-from-favorite {
+  position: absolute;
+  top: 0;
+}
+
+.add {
+  cursor: pointer;
+  color: rgba(37, 35, 35, 0.996);
+  width: 50px;
+  height: 35px;
+}
+.add:hover {
+  color: black;
+}
+.remove {
+  cursor: pointer;
+  color: rgb(179, 56, 56);
+  width: 50px;
+  height: 25px;
+}
+.about-movie {
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+}
+#pic img {
   border-radius: 15px;
   float: right;
 }
-#pic p{
+#pic p {
   line-height: 1.5;
   justify-self: center;
-  font-size:x-large;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: x-large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   align-items: center;
 }
-#genres{
-  align-self:center ;
+#genres {
+  align-self: center;
   width: 60px;
 }
-#genres:hover{
+#genres:hover {
   box-shadow: 1px 1px 1px rgb(4, 4, 4);
 }
-.filter{
+.filter {
   align-self: center;
   height: 100%;
   display: flex;
 }
-option,select{
+option,
+select {
   color: white;
-  background-color: rgb(9, 9, 9)
+  background-color: rgb(9, 9, 9);
 }
-.page-change{
-justify-content: center;
+.page-change {
+  justify-content: center;
   display: flex;
   justify-self: center;
 }
-#filter-btn{
-  background-color: black;
+#filter-btn {
   color: white;
 }
-.page-btn button{
+.page-btn button {
   width: 40px;
   height: 25px;
 }
-#left svg{
+#left svg {
   height: 25px;
   width: 25px;
 }
-#right svg{
+#right svg {
   height: 25px;
   width: 25px;
 }
-#left svg:hover{
+#left svg:hover {
   color: gray;
-  }
-  #right svg:hover{
-    color: gray;
-    }
+}
+#right svg:hover {
+  color: gray;
+}
+.sign-in-page{
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+  width: 100vw;
+	height: 100vh;
+  background: #281a44;
+	background: -webkit-linear-gradient(to right, #0d0323, #281a44);
+	background: linear-gradient(to top, #0d0323, #281a44)
+}
+.sign-in-head{
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+.dont-have-account{
+  gap: 2px;
+  display: flex;
+  align-items: center;
+}
+.email-password{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+#input-email,#input-password{
+  height: 40px;
+  width: 300px;
+  background-color: #0d032337;
+  color: white;
+  border: 1px solid white;
+  padding:3px;
+  border-radius: 10px;
+}
+#sign-in-btn{
+  height: 40px;
+  width: 300px;
+  border-radius: 10px;
+  color: white;
+  font-size: large;
+  background-color:  hsla(0,0%,100%,.2);
+}
+#welcom h1{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:normal;
+  font-size: 2em;
+}
+.register-page{
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+  width: 100vw;
+	height: 100vh;
+  background: #281a44;
+	background: -webkit-linear-gradient(to right, #0d0323, #281a44);
+	background: linear-gradient(to top, #0d0323, #281a44)
+}
+.register-head{
+  margin-left: 20px;
+  margin-right: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.register-inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+.have-account{
+  gap: 2px;
+  display: flex;
+  align-items: center;
+}
+.name-email-password{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+#register-input-email,#register-input-password,#input-first-name,#birth-day,.gender-select{
+  height: 40px;
+  width: 300px;
+  background-color: #0d032337;
+  color: white;
+  border: 1px solid white;
+  padding:3px;
+  border-radius: 10px;
+}
+#register-btn{
+  height: 40px;
+  width: 300px;
+  border-radius: 10px;
+  color: white;
+  font-size: large;
+  background-color:  hsla(0,0%,100%,.2);
+}
+#let-register h1{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:normal;
+  font-size: 2em;
+}
+.gender-select option{
+  height: 50px;
+}

@@ -22,10 +22,10 @@
       
       <div class="buttons">
         <div class="filter">   
-         <button id="filter-btn" style="height: 19px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-right" viewBox="0 0 16 16">
+         <div id="filter-btn" style="height: 19px;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-filter-right" viewBox="0 0 16 16">
             <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5"/>
-          </svg></button>
-        <select id="genres"><option>All</option></select>
+          </svg></div>
+        <select id="genres"></select>
         </div>
         <div><button id="register">Register</button></div>
         <div id="sign-in">Sign In</div>
@@ -50,7 +50,52 @@
       <div class="about-movie"></div>
     </div>
     <div class="search-page"></div>
-    <div class="sign-in-page"></div>
+    <div class="register-page">
+      <div class="register-head"> <div id="go-to-home"><h6>Movies</h6></div>
+      <div id="go-to-sign-in"><h4>Sign In</h4></div></div>
+   
+    <div class="inputs"> <div id="register-icon"><svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+      <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+    </svg></div>
+  <div id="let-register"><h1>Let's get you set up!</h1></br>
+  <h4 style="text-align: center;">It's free. No subscription required</h4></div>
+  <div class="name-email-password"><div class="input-first-name"><input id="input-first-name" type="text" placeholder="First Name"></div><div class="input-email"><input id="register-input-email" type="email" placeholder="Email"></div>
+  <div class="register-input-password"><input id="register-input-password" type="password" placeholder="Password"></div></div>
+  <div class="birthday">
+    <label class="birthday-label">Birthday</label>
+    <div><input id="birth-day" type="date"></div>
+  </div>
+<div class="gender">
+  <select class="gender-select">
+    <option>Male</option>
+    <option>Female</option>
+  </select>
+</div>
+<div class="register-btn"><button id="register-btn">Register</button></div>
+<div class="have-account">
+  <p id="dont-have-account">Already have an account? </p>
+  <p id="go-to-register">Sign In</p>
+  </div>
+</div></div>
+    <div class="sign-in-page">
+      <div class="sign-in-head"> <div id="go-to-home"><h6>Movies</h6></div>
+      <div id="go-to-register"><h4>Register</h4></div></div>
+     <div class="inputs"> <div id="user-icon"><svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+      </svg></div>
+    <div id="welcom"><h1>Welcome Back!</h1></div>
+    <div class="email-password"><div class="input-email"><input id="input-email" type="email" placeholder="Email"></div>
+        <div class="input-password"><input id="input-password" type="password" placeholder="Password"></div></div>
+      
+          <div class="sign-in-btn"><button id="sign-in-btn">Sign In</button></div>
+          <div class="dont-have-account">
+            <p id="dont-have-account">Don't have an account? </p>
+            <p id="go-to-register">Register</p>
+            </div></div>
+     
+       
+  </div>
 
     <script src="main.js"></script>
   </body>
