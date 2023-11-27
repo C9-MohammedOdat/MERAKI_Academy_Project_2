@@ -43,7 +43,17 @@ const render_1=(data,data_1) => {
         const right = $("#right");
         const signInPage = $(".sign-in-page");
         const registerPage = $(".register-page");
+        const goToRegister=$("#register")
+        const goToSignIn=$("#sign-in")
+        const goFromRegisterToHome=$("#go-from-register-to-home")
+        const goFromSignInToHome=$("#go-to-home")
+        const goFromRegisterToSignIn=$("#go-to-sign-in")
+        const goFromSignInToRegester=$("#go-to-register")
+        const fromRegisterToSignIn=$("#to-sign-in")
+        const fromSignInToRegester=$("#to-register")
         const renderHomePage = (movies) => {
+          signInPage.hide()
+          registerPage.hide()
           moviesList.html("");
           movies.forEach((ele, i) => {
             const movie = $(`<div class="poster">
@@ -234,5 +244,44 @@ const render_1=(data,data_1) => {
 
           rendierFavorite();
         });
-        signInPage.hide()
-      registerPage.hide()}
+        goToRegister.on("click",()=>{
+          homePage.hide()
+          favoritePage.hide()
+          descriptionPage.hide()
+          signInPage.hide()
+          registerPage.show()
+          head.hide()
+        })
+        goToSignIn.on("click",()=>{
+          homePage.hide()
+          favoritePage.hide()
+          descriptionPage.hide()
+          signInPage.show()
+          registerPage.hide()
+          head.hide()
+        })
+        goFromRegisterToHome.on("click",()=>{
+          homePage.show()
+          registerPage.hide()
+        })
+        goFromSignInToHome.on("click",()=>{
+          homePage.show()
+          signInPage.hide()
+        })
+        goFromRegisterToSignIn.on("click",()=>{
+          registerPage.hide()
+          signInPage.show()
+        })
+        goFromSignInToRegester.on("click",()=>{
+          registerPage.show()
+          signInPage.hide()
+        })
+        fromRegisterToSignIn.on("click",()=>{
+          registerPage.hide()
+          signInPage.show()
+        })
+        fromSignInToRegester.on("click",()=>{
+          registerPage.show()
+          signInPage.hide()
+        })
+}
