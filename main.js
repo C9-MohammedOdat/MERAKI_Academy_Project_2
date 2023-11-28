@@ -1,4 +1,4 @@
-let index;
+
 let apiFilm;
 let apiFlimAll;
 let y = 1;
@@ -20,8 +20,6 @@ let signedInUser;
   renderAll(i);
  }
  const render = ()=>{
-
- 
   $.ajax({
   url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
   success: (data) => {
@@ -46,14 +44,7 @@ let signedInUser;
 });
 }
 render()
-
-
-// const render_1 = (data, data_1) => {
-  
-// };
-// render_1()
  const users= JSON.parse(localStorage.getItem("users")) || [];
- 
   const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
   const moviesList = $(".movies");
   const images = $(".images");
@@ -124,19 +115,23 @@ render()
       const add = $(`.add`);
       add.on("click", function (e) {
         const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
+        signedInOrNot();
         console.log(signedInUser);
-        if (!favorite.includes(favMovie)&& signedInUser.signedIn) {
+        if(signedInUser!=undefined){ 
+          if (!favorite.includes(favMovie) && signedInUser.signedIn) {
           favorite.push(favMovie);
           let toString = JSON.stringify(favorite);
           localStorage.setItem("favorite", toString);
-        }else{ 
-         homePage.hide()
-          signInPage.show()
-          head.hide()
-          searchPage.hide()
-          favoritePage.hide()
-          descriptionPage.hide()
+        }}else{
+            homePage.hide()
+         signInPage.show()
+         head.hide()
+         searchPage.hide()
+         favoritePage.hide()
+         descriptionPage.hide() 
+         
         }
+       
       });
     });
     const all = $(`<option>All</option>`);
@@ -232,7 +227,16 @@ render()
       renderDescriptionPage(findObject);
     });
   };
+const signedInOrNot=()=>{
+  let u=0;
+  users.forEach((ele,i)=>{
+    if(ele.signedIn===true){
+      return signedInUser=ele;
+      u=1
+    }
+  })
 
+}
   searchBtn.on("click", () => {
     renderAll()
     if(searchBar.val()!==""){
@@ -333,7 +337,6 @@ render()
     || registerPssword.val()==="" || birthday.val()=="" || gender.val()===""){
       return console.log("pls inseart all info");
     }else{
-      console.log(birthday.val());
       renderRegister(users,firstName.val(),registerEmail.val(),registerPssword.val(),birthday.val(),gender.val())
    console.log(users);
     }
@@ -342,7 +345,7 @@ render()
     if(signInEmail.val()==="" || signInpassword.val()==="" ){
       console.log("pls inceart all the field");
     }else{
-      renderSignIn(users,signInEmail.val(),signInpassword.val(),goToFavorite,homePage,signInPage,head)
+      renderSignIn(users,signInEmail.val(),signInpassword.val())
     }
   })
   mode.on("change",()=>{
@@ -373,42 +376,58 @@ render()
 
 
 const renderRegister=(users,fName,e,pass,birth,gen)=>{
+  let u=0;
 users.forEach((ele,i)=>{
   if(ele.email===e){
-    console.log("email is excesed");
+    u=1;
+ console.log("email is excesed");
   }
 })
-users.push({
-  firstName:fName,
-  email:e,
-password:pass,
-birthday:birth,
-gender:gen,
-signedIn:false,
+if(u===0){
+  console.log(u);
+  users.push({
+    firstName:fName,
+    email:e,
+  password:pass,
+  birthday:birth,
+  gender:gen,
+  signedIn:false,
 })
-let toString = JSON.stringify(users);
+signInPage.show()
+registerPage.hide()
+  let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
+  
 }
-const renderSignIn=(users,signInEmail,signInpassword,goToFavorite,homePage,signInPage,head)=>{
+
+}
+const renderSignIn=(users,signInEmail,signInpassword)=>{
+  let u=0;
+  if(users.length===0){
+console.log("user not found please rigester now");
+registerPage.show()
+signInPage.hide()
+  }
   users.forEach((ele,i)=>{
   if(ele.email===signInEmail && ele.password===signInpassword){
-    signedInUser=ele;
     ele.signedIn=true;
-    index=i
     let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
           goToFavorite.show()
           homePage.show()
           signInPage.hide()
           head.show()
+          u=1;
   }else{
     ele.signedIn=false
     let toString = JSON.stringify(users);
     localStorage.setItem("users", toString);
   }
   })
+  if(u===0 && users.length!=0){
+    console.log("username or password is incorrect");
+  }
 }
-// $(window).on("load", renderHomePage());
 
 
 
