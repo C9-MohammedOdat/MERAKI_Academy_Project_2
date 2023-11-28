@@ -46,7 +46,7 @@ body {
   color: white;
 }
 #favorite {
-  display: none;
+  /* display: none; */
   font-size: 1.5em;
   color: white;
   font-weight: bold;
@@ -131,6 +131,7 @@ body {
   color: gray;
 }
 .search-page {
+  color: white;
   margin: 50px 0 0 25px;
 }
 .poster-info {
@@ -234,14 +235,15 @@ body {
   box-shadow: 1px 1px 1px rgb(4, 4, 4);
 }
 .filter {
-  align-self: center;
+  margin:15px 15px ;
+  align-self: end;
   height: 100%;
   display: flex;
 }
 option,
 select {
   color: white;
-  background-color: rgb(9, 9, 9);
+  background-color: rgb(81, 81, 82);
 }
 .page-change {
   justify-content: center;
@@ -252,8 +254,14 @@ select {
   color: white;
 }
 .page-btn button {
+  border-radius: 5px;
+  margin: 2px;
   width: 40px;
   height: 25px;
+  background-color: #3f49a4bc;
+}
+.page-btn button:hover{
+  background-color: #281a44;
 }
 #left svg {
   height: 25px;
@@ -387,4 +395,64 @@ select {
 }
 .gender-select option{
   height: 50px;
+}
+.mode{
+  display: flex;
+  gap: 5px;
+  height: 100%;
+  align-self:center ;
+}
+#mode{
+  border-radius: 10px;
+}
+#go-to-sign-in,#to-sign-in,#go-to-register,#to-register{
+  cursor: pointer;
+}
+@media (min-width: 320px) and (max-width: 480px){
+  .home-page,.favorite-page,.description-page{
+    margin-left: 15%;
+  }
+}
+@media  (max-width:800px){
+  .head{
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+  #home{
+    font-size: 1.5em;
+  }
+  #search-bar{
+    height: 25px;
+    width: 120px;
+ 
+}
+#register{
+  width: 65px;
+  height: 25px;
+  font-size: 0.75em;
+}
+#sign-in {
+  font-size: 0.75em}
+ 
+ #search-btn{
+ top:5px;
+ }
+ #pic img{
+  width:250px;
+  height: 350px;
+ }
+ #favorite {
+  font-size: 1em;
+ }
+ .buttons{
+  gap:5px;
+ }
+ #mode-btn svg{
+  width:16px;
+   height:16px;
+ }
+ .register-page{
+  gap:50px;
+ }
+
 }

@@ -1,8 +1,24 @@
 let index;
 let apiFilm;
-let y = 1
+let apiFlimAll;
+let y = 1;
  let apiGenres;
  let samples =[];
+let allFilm=[];
+let signedInUser;
+ const renderAll=(x)=>{
+  $.ajax({
+    url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${x}`,
+    success: (data) => {
+    allFilm = allFilm.concat(data.results)
+    },
+    error: (err) => {
+      console.log(err);
+    },
+ })}
+ for(let i=1;i<11;i++){
+  renderAll(i);
+ }
  const render = ()=>{
 
  
@@ -74,7 +90,8 @@ render()
   const signInEmail=$("#input-email")
   const signInpassword=$("#input-password")
   const signInBtn=$("#sign-in-btn")
-  let signedInUser=null;
+  const mode=$("#mode")
+  const filterBtn=$("#filter-btn")
   const renderHomePage = () => {
     signInPage.hide();
     registerPage.hide();
@@ -98,7 +115,6 @@ render()
         </svg></div>
           </div>
           </div>`);
-
       moviesList.append(movie);
       const movieImage = $(".movieImage");
       movieImage.on("click", function (e) {
@@ -108,17 +124,13 @@ render()
       const add = $(`.add`);
       add.on("click", function (e) {
         const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
-        console.log(favorite.includes(favMovie))
-        console.log(users)
-        console.log(users[index])
-       
-        
-        if (!favorite.includes(favMovie)&&users[index].signedIn) {
+        console.log(signedInUser);
+        if (!favorite.includes(favMovie)&& signedInUser.signedIn) {
           favorite.push(favMovie);
           let toString = JSON.stringify(favorite);
           localStorage.setItem("favorite", toString);
-        }else{
-          homePage.hide()
+        }else{ 
+         homePage.hide()
           signInPage.show()
           head.hide()
           searchPage.hide()
@@ -142,22 +154,20 @@ render()
         render()
       })
     }
-    
+   
   };
   filterSelect.on("change", () => {
     if (filterSelect.val() === "All") {
-      // filterSelect.html("");
       pages.show()
       pages.html("");
       moviesList.html("");
-      console.log(filterSelect.val());
       render()
     } else {
-      const filteredFilm = apiFilm.filter((ele, i) => {
+      renderAll()
+      const filteredFilm = allFilm.filter((ele, i) => {
         return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
       });
-      console.log(filteredFilm);
-      // filterSelect.html("");
+      apiFilm=filteredFilm;
       pages.html("");
       pages.hide()
       moviesList.html("");
@@ -224,10 +234,11 @@ render()
   };
 
   searchBtn.on("click", () => {
-    const filterMovies = apiFilm.filter((ele, i) => {
+    renderAll()
+    if(searchBar.val()!==""){
+    const filterMovies = allFilm.filter((ele, i) => {
       return ele.title.toLowerCase().includes(searchBar.val().toLowerCase());
     });
-   
     apiFilm=filterMovies
     if (filterMovies.length != 0) {
       renderHomePage();
@@ -244,7 +255,17 @@ render()
       searchPage.show();
       pages.hide()
     }
-  });
+  }else{
+    const noResult = $(`<div><h3>No Result</h3></div>`);
+    searchPage.append(noResult);
+    homePage.hide();
+    favoritePage.hide();
+    descriptionPage.hide();
+    searchBar.val("");
+    searchPage.show();
+    pages.hide()
+  }
+});
   goToHome.on("click", () => {
     pages.html("");
     pages.show()
@@ -321,7 +342,26 @@ render()
     if(signInEmail.val()==="" || signInpassword.val()==="" ){
       console.log("pls inceart all the field");
     }else{
-      renderSignIn(users,signInEmail.val(),signInpassword.val(),goToFavorite,homePage,signInPage,signedInUser,head)
+      renderSignIn(users,signInEmail.val(),signInpassword.val(),goToFavorite,homePage,signInPage,head)
+    }
+  })
+  mode.on("change",()=>{
+    if (mode.val()==="Light"){
+      body.css("background-color","white","color","black")
+      head.css("background-color","#281a44","color","black")
+      searchBar.css("background-color","#67529597")
+      moviesList.css("color","black")
+      filterBtn.css("color","black")
+      aboutMovie.css("color","black")
+    }else{
+      body.css("background-color","black","color","white")
+      head.css("background-color","rgba(38, 35, 35, 0.816)","color","white")
+      moviesList.css("color","white")
+      filterBtn.css("color","white")
+      searchBar.css("background-color","hwb(0 14% 85% / 0.974)")
+      aboutMovie.css("color","white")
+
+
     }
   })
   const hideShow = (hide,show) => {
@@ -349,19 +389,22 @@ signedIn:false,
 let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
 }
-const renderSignIn=(users,signInEmail,signInpassword,goToFavorite,homePage,signInPage,signedInUser,head)=>{
+const renderSignIn=(users,signInEmail,signInpassword,goToFavorite,homePage,signInPage,head)=>{
   users.forEach((ele,i)=>{
   if(ele.email===signInEmail && ele.password===signInpassword){
+    signedInUser=ele;
     ele.signedIn=true;
     index=i
-
     let toString = JSON.stringify(users);
           localStorage.setItem("users", toString);
-          console.log(users.signedIn);
           goToFavorite.show()
           homePage.show()
           signInPage.hide()
           head.show()
+  }else{
+    ele.signedIn=false
+    let toString = JSON.stringify(users);
+    localStorage.setItem("users", toString);
   }
   })
 }
