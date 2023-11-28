@@ -81,8 +81,21 @@ render()
   const signInEmail=$("#input-email")
   const signInpassword=$("#input-password")
   const signInBtn=$("#sign-in-btn")
+  const divSignInBtn=$(".sign-in-btn")
+  const divRegisterBtn=$(".register-btn")
   const mode=$("#mode")
   const filterBtn=$("#filter-btn")
+  const emptyFieldS=$(`<div id="empty-field-S">Please Fill All The Field</div>`)
+  const emptyFieldD=$(`<div id="empty-field-D">Please Fill All The Field</div>`)
+  const wrongEmPass=$(`<div id="wrong">Username Or Password Is Incorrect</div>`)
+  const userNotFound=$(`<div id="not-found">User Not Found Please Rigester Now</div>`)
+  const emailExi=$(`<div id="existing">Email Is Existing</div>`)
+  divSignInBtn.append(wrongEmPass)
+  divRegisterBtn.append(emailExi)
+  divSignInBtn.append(userNotFound)
+  divRegisterBtn.append(emptyFieldD)
+  divSignInBtn.append(emptyFieldS)
+
   const renderHomePage = () => {
     signInPage.hide();
     registerPage.hide();
@@ -305,7 +318,10 @@ const signedInOrNot=()=>{
     head.hide();
   });
   goFromRegisterToHome.on("click", () => {
-
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
     pages.show()
 
     homePage.show();
@@ -317,25 +333,46 @@ const signedInOrNot=()=>{
     head.show();
     homePage.show();
     signInPage.hide();
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
   });
   goFromRegisterToSignIn.on("click", () => {
     hideShow();
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
   });
   goFromSignInToRegester.on("click", () => {
     registerPage.show();
     signInPage.hide();
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
   });
   fromRegisterToSignIn.on("click", () => {
     hideShow();
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
   });
   fromSignInToRegester.on("click", () => {
     registerPage.show();
     signInPage.hide();
+    emptyFieldS.hide()
+    emptyFieldD.hide()
+    userNotFound.hide()
+    wrongEmPass.hide()
   });
   registerBtn.on("click",()=>{
     if(firstName.val()==="" ||registerEmail.val()===""
-    || registerPssword.val()==="" || birthday.val()=="" || gender.val()===""){
-      return console.log("pls inseart all info");
+    || registerPssword.val()==="" || birthday.val()=="" || gender.val()===""){console.log("test");
+      emptyFieldD.show()
+      emailExi.hide()
     }else{
       renderRegister(users,firstName.val(),registerEmail.val(),registerPssword.val(),birthday.val(),gender.val())
    console.log(users);
@@ -343,7 +380,10 @@ const signedInOrNot=()=>{
   })
   signInBtn.on("click",()=>{
     if(signInEmail.val()==="" || signInpassword.val()==="" ){
-      console.log("pls inceart all the field");
+      emptyFieldS.show()
+      userNotFound.hide()
+      wrongEmPass.hide()
+
     }else{
       renderSignIn(users,signInEmail.val(),signInpassword.val())
     }
@@ -380,7 +420,8 @@ const renderRegister=(users,fName,e,pass,birth,gen)=>{
 users.forEach((ele,i)=>{
   if(ele.email===e){
     u=1;
- console.log("email is excesed");
+emailExi.show()
+emptyFieldD.hide()
   }
 })
 if(u===0){
@@ -404,9 +445,10 @@ registerPage.hide()
 const renderSignIn=(users,signInEmail,signInpassword)=>{
   let u=0;
   if(users.length===0){
-console.log("user not found please rigester now");
-registerPage.show()
-signInPage.hide()
+    userNotFound.show()
+      wrong.hide()
+      emptyFieldS.hide()
+    
   }
   users.forEach((ele,i)=>{
   if(ele.email===signInEmail && ele.password===signInpassword){
@@ -425,7 +467,9 @@ signInPage.hide()
   }
   })
   if(u===0 && users.length!=0){
-    console.log("username or password is incorrect");
+    wrong.show()
+    emptyFieldS.hide()
+    userNotFound.hide()
   }
 }
 

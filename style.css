@@ -408,6 +408,12 @@ select {
 #go-to-sign-in,#to-sign-in,#go-to-register,#to-register{
   cursor: pointer;
 }
+#wrong,#empty-field-D,#empty-field-S,#not-found,#existing{
+  display: none;
+  align-self: center;
+  color: rgb(235, 37, 37);
+text-align: center;
+}
 @media (min-width: 320px) and (max-width: 480px){
   .home-page,.favorite-page,.description-page{
     margin-left: 15%;
