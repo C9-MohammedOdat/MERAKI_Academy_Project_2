@@ -136,7 +136,6 @@ const renderHomePage = () => {
     add.on("click", function (e) {
       const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
       signedInOrNot();
-      console.log(signedInUser);
       if (signedInUser != undefined) {
         if (!favorite.includes(favMovie) && signedInUser.signedIn) {
           goToFavorite.show()
@@ -391,7 +390,6 @@ registerBtn.on("click", () => {
       birthday.val(),
       gender.val()
     );
-    console.log(users);
   }
 });
 signInBtn.on("click", () => {
@@ -435,7 +433,6 @@ const renderRegister = (users, fName, e, pass, birth, gen) => {
     }
   });
   if (u === 0) {
-    console.log(u);
     users.push({
       firstName: fName,
       email: e,
@@ -474,7 +471,7 @@ const renderSignIn = (users, signInEmail, signInpassword) => {
     }
   });
   if (u === 0 && users.length != 0) {
-    wrong.show();
+    wrongEmPass.show();
     emptyFieldS.hide();
     userNotFound.hide();
   }
