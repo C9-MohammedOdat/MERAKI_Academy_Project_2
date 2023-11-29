@@ -1,110 +1,117 @@
-
 let apiFilm;
 let apiFlimAll;
 let y = 1;
- let apiGenres;
- let samples =[];
-let allFilm=[];
+let apiGenres;
+let samples = [];
+let allFilm = [];
 let signedInUser;
- const renderAll=(x)=>{
+const renderAll = (x) => {
   $.ajax({
     url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${x}`,
     success: (data) => {
-    allFilm = allFilm.concat(data.results)
+      allFilm = allFilm.concat(data.results);
     },
     error: (err) => {
       console.log(err);
     },
- })}
- for(let i=1;i<11;i++){
+  });
+};
+for (let i = 1; i < 11; i++) {
   renderAll(i);
- }
- const render = ()=>{
-  $.ajax({
-  url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
-  success: (data) => {
-    $.ajax({
-      url: "https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
-      success: (data_1) => {
-        
-        samples =data_1.genres
-  apiFilm =data.results;
-   apiGenres = data_1.genres.reduce((acc, ele, i) => {
-    acc[ele.id] = ele.name;
-    return acc;
-  }, {});
-  renderHomePage()
-      },
-      error: (err) => {},
-    });
-  },
-  error: (err) => {
-    console.log(err);
-  },
-});
 }
-render()
- const users= JSON.parse(localStorage.getItem("users")) || [];
-  const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
-  const moviesList = $(".movies");
-  const images = $(".images");
-  const head = $(".head");
-  const favoriteMovies = $(".favorite-movies");
-  const goToFavorite = $("#favorite");
-  const goToHome = $("#home");
-  const homePage = $(".home-page");
-  const favoritePage = $(".favorite-page");
-  const descriptionPage = $(".description-page");
-  const aboutMovie = $(".about-movie");
-  const body = $("body");
-  const searchPage = $(".search-page");
-  const searchBar = $("#search-bar");
-  const searchBtn = $("#search-btn");
-  const filterSelect = $("#genres");
-  const pages = $(".page-btn");
-  const signInPage = $(".sign-in-page");
-  const registerPage = $(".register-page");
-  const goToRegister = $("#register");
-  const goToSignIn = $("#sign-in");
-  const goFromRegisterToHome = $("#go-from-register-to-home");
-  const goFromSignInToHome = $("#go-to-home");
-  const goFromRegisterToSignIn = $("#go-to-sign-in");
-  const goFromSignInToRegester = $("#go-to-register");
-  const fromRegisterToSignIn = $("#to-sign-in");
-  const fromSignInToRegester = $("#to-register");
-  const firstName=$("#input-first-name")
-  const registerEmail=$("#register-input-email")
-  const registerPssword=$("#register-input-password")
-  const birthday=$("#birth-day")
-  const gender=$(".gender-select")
-  const registerBtn=$("#register-btn")
-  const signInEmail=$("#input-email")
-  const signInpassword=$("#input-password")
-  const signInBtn=$("#sign-in-btn")
-  const divSignInBtn=$(".sign-in-btn")
-  const divRegisterBtn=$(".register-btn")
-  const mode=$("#mode")
-  const filterBtn=$("#filter-btn")
-  const emptyFieldS=$(`<div id="empty-field-S">Please Fill All The Field</div>`)
-  const emptyFieldD=$(`<div id="empty-field-D">Please Fill All The Field</div>`)
-  const wrongEmPass=$(`<div id="wrong">Username Or Password Is Incorrect</div>`)
-  const userNotFound=$(`<div id="not-found">User Not Found Please Rigester Now</div>`)
-  const emailExi=$(`<div id="existing">Email Is Existing</div>`)
-  divSignInBtn.append(wrongEmPass)
-  divRegisterBtn.append(emailExi)
-  divSignInBtn.append(userNotFound)
-  divRegisterBtn.append(emptyFieldD)
-  divSignInBtn.append(emptyFieldS)
+const render = () => {
+  $.ajax({
+    url: `https://api.themoviedb.org/3/movie/now_playing?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=${y}`,
+    success: (data) => {
+      $.ajax({
+        url: "https://api.themoviedb.org/3/genre/movie/list?api_key=1bfa430aada4409bfa6a3c5528128e8a&page=1",
+        success: (data_1) => {
+          samples = data_1.genres;
+          apiFilm = data.results;
+          apiGenres = data_1.genres.reduce((acc, ele, i) => {
+            acc[ele.id] = ele.name;
+            return acc;
+          }, {});
+          renderHomePage();
+        },
+        error: (err) => {},
+      });
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  });
+};
+render();
+const users = JSON.parse(localStorage.getItem("users")) || [];
+const favorite = JSON.parse(localStorage.getItem("favorite")) || [];
+const moviesList = $(".movies");
+const images = $(".images");
+const head = $(".head");
+const favoriteMovies = $(".favorite-movies");
+const goToFavorite = $("#favorite");
+const goToHome = $("#home");
+const homePage = $(".home-page");
+const favoritePage = $(".favorite-page");
+const descriptionPage = $(".description-page");
+const aboutMovie = $(".about-movie");
+const body = $("body");
+const searchPage = $(".search-page");
+const searchBar = $("#search-bar");
+const searchBtn = $("#search-btn");
+const filterSelect = $("#genres");
+const pages = $(".page-btn");
+const signInPage = $(".sign-in-page");
+const registerPage = $(".register-page");
+const goToRegister = $("#register");
+const goToSignIn = $("#sign-in");
+const goFromRegisterToHome = $("#go-from-register-to-home");
+const goFromSignInToHome = $("#go-to-home");
+const goFromRegisterToSignIn = $("#go-to-sign-in");
+const goFromSignInToRegester = $("#go-to-register");
+const fromRegisterToSignIn = $("#to-sign-in");
+const fromSignInToRegester = $("#to-register");
+const firstName = $("#input-first-name");
+const registerEmail = $("#register-input-email");
+const registerPssword = $("#register-input-password");
+const birthday = $("#birth-day");
+const gender = $(".gender-select");
+const registerBtn = $("#register-btn");
+const signInEmail = $("#input-email");
+const signInpassword = $("#input-password");
+const signInBtn = $("#sign-in-btn");
+const divSignInBtn = $(".sign-in-btn");
+const divRegisterBtn = $(".register-btn");
+const mode = $("#mode");
+const filterBtn = $("#filter-btn");
+const emptyFieldS = $(
+  `<div id="empty-field-S">Please Fill All The Field</div>`
+);
+const emptyFieldD = $(
+  `<div id="empty-field-D">Please Fill All The Field</div>`
+);
+const wrongEmPass = $(
+  `<div id="wrong">Username Or Password Is Incorrect</div>`
+);
+const userNotFound = $(
+  `<div id="not-found">User Not Found Please Rigester Now</div>`
+);
+const emailExi = $(`<div id="existing">Email Is Existing</div>`);
+divSignInBtn.append(wrongEmPass);
+divRegisterBtn.append(emailExi);
+divSignInBtn.append(userNotFound);
+divRegisterBtn.append(emptyFieldD);
+divSignInBtn.append(emptyFieldS);
 
-  const renderHomePage = () => {
-    signInPage.hide();
-    registerPage.hide();
-    moviesList.html("");
-    apiFilm.forEach((ele, i) => {
-      const movie = $(`<div class="poster">
+const renderHomePage = () => {
+  signInPage.hide();
+  registerPage.hide();
+  moviesList.html("");
+  apiFilm.forEach((ele, i) => {
+    const movie = $(`<div class="poster">
           <div id="poster-img"><img class="movieImage ${ele.id}" src=${
-        "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
-      }></div>
+      "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
+    }></div>
           <div class="poster-info">
           <div id="poster-name">
           <p>${ele.title}</p>
@@ -119,71 +126,70 @@ render()
         </svg></div>
           </div>
           </div>`);
-      moviesList.append(movie);
-      const movieImage = $(".movieImage");
-      movieImage.on("click", function (e) {
-        const findObject = apiFilm.find(({ id }) => id == this.classList[1]);
-        renderDescriptionPage(findObject);
-      });
-      const add = $(`.add`);
-      add.on("click", function (e) {
-        const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
-        signedInOrNot();
-        console.log(signedInUser);
-        if(signedInUser!=undefined){ 
-          if (!favorite.includes(favMovie) && signedInUser.signedIn) {
+    moviesList.append(movie);
+    const movieImage = $(".movieImage");
+    movieImage.on("click", function (e) {
+      const findObject = apiFilm.find(({ id }) => id == this.classList[1]);
+      renderDescriptionPage(findObject);
+    });
+    const add = $(`.add`);
+    add.on("click", function (e) {
+      const favMovie = apiFilm.find(({ id }) => id == this.classList[1]);
+      signedInOrNot();
+      console.log(signedInUser);
+      if (signedInUser != undefined) {
+        if (!favorite.includes(favMovie) && signedInUser.signedIn) {
+          goToFavorite.show()
           favorite.push(favMovie);
           let toString = JSON.stringify(favorite);
           localStorage.setItem("favorite", toString);
-        }}else{
-            homePage.hide()
-         signInPage.show()
-         head.hide()
-         searchPage.hide()
-         favoritePage.hide()
-         descriptionPage.hide() 
-         
         }
-       
-      });
+      } else {
+        homePage.hide();
+        signInPage.show();
+        head.hide();
+        searchPage.hide();
+        favoritePage.hide();
+        descriptionPage.hide();
+      }
     });
-    const all = $(`<option>All</option>`);
-    filterSelect.append(all);
-    samples.forEach((ele, i) => {
-      const genresOptions = $(`<option>${ele.name}</option>`);
-      filterSelect.append(genresOptions);
-    });
-    for (let i = 1; i < 11; i++) {
-      const pageBtn = $(`<button>${i}</button>`);
-      pages.append(pageBtn);
-      pageBtn.on("click",()=>{
-        pages.html("")
-        y =i
-        render()
-      })
-    }
-   
-  };
-  filterSelect.on("change", () => {
-    if (filterSelect.val() === "All") {
-      pages.show()
-      pages.html("");
-      moviesList.html("");
-      render()
-    } else {
-      renderAll()
-      const filteredFilm = allFilm.filter((ele, i) => {
-        return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
-      });
-      apiFilm=filteredFilm;
-      pages.html("");
-      pages.hide()
-      moviesList.html("");
-       renderHomePage();
-    }
   });
-  const renderDescriptionPage = (ele) => {
-    const moviePic = $(`<div><h1>${ele.title}</h1></div>
+  const all = $(`<option>All</option>`);
+  filterSelect.append(all);
+  samples.forEach((ele, i) => {
+    const genresOptions = $(`<option>${ele.name}</option>`);
+    filterSelect.append(genresOptions);
+  });
+  for (let i = 1; i < 11; i++) {
+    const pageBtn = $(`<button>${i}</button>`);
+    pages.append(pageBtn);
+    pageBtn.on("click", () => {
+      pages.html("");
+      y = i;
+      render();
+    });
+  }
+};
+filterSelect.on("change", () => {
+  if (filterSelect.val() === "All") {
+    pages.show();
+    pages.html("");
+    moviesList.html("");
+    render();
+  } else {
+    
+    const filteredFilm = allFilm.filter((ele, i) => {
+      return filterSelect.val() === apiGenres[ele.genre_ids["0"]];
+    });
+    apiFilm = filteredFilm;
+    pages.html("");
+    pages.hide();
+    moviesList.html("");
+    renderHomePage();
+  }
+});
+const renderDescriptionPage = (ele) => {
+  const moviePic = $(`<div><h1>${ele.title}</h1></div>
       <div>${ele.video}</div>
       <div><h1 style="border-bottom:2px solid white">About ${
         ele.title
@@ -192,22 +198,21 @@ render()
         "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
       }>
     ${ele.overview}</div>`);
-    aboutMovie.html("");
-    aboutMovie.append(moviePic);
-    homePage.hide();
-    favoritePage.hide();
-    descriptionPage.show();
-  };
-  const rendierFavorite = () => {
-   
-    favoriteMovies.html("");
-    favorite.forEach((ele, i) => {
-      const listOfFavorite = $(`<div class="favorite-poster">
+  aboutMovie.html("");
+  aboutMovie.append(moviePic);
+  homePage.hide();
+  favoritePage.hide();
+  descriptionPage.show();
+};
+const rendierFavorite = () => {
+  favoriteMovies.html("");
+  favorite.forEach((ele, i) => {
+    const listOfFavorite = $(`<div class="favorite-poster">
         <div id="favorite-poster-img"></i><img class="movieImage ${
           ele.id
         }" src=${
-        "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
-      }></div>
+      "https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + ele.poster_path
+    }></div>
         <div class="favorite-poster-info">
         <div id="favorite-poster-name">
         <p>${ele.title}</p>
@@ -222,46 +227,44 @@ render()
       </svg></div>
         </div>
         </div>`);
-      favoriteMovies.append(listOfFavorite);
-      favoritePage.append(favoriteMovies);
-      const remove = $(".remove");
-      remove.on("click", function (e) {
-        favorite.splice(i, 1);
-        let toString = JSON.stringify(favorite);
-        localStorage.setItem("favorite", toString);
-        rendierFavorite();
-        descriptionPage.hide();
-      });
+    favoriteMovies.append(listOfFavorite);
+    favoritePage.append(favoriteMovies);
+    const remove = $(".remove");
+    remove.on("click", function (e) {
+      favorite.splice(i, 1);
+      let toString = JSON.stringify(favorite);
+      localStorage.setItem("favorite", toString);
+      rendierFavorite();
+      descriptionPage.hide();
     });
-    const movieImage = $(".movieImage");
-    movieImage.on("click", (e) => {
-      const findObject = favorite.find(({ id }) => id == e.target.classList[1]);
+  });
+  const movieImage = $(".movieImage");
+  movieImage.on("click", (e) => {
+    const findObject = favorite.find(({ id }) => id == e.target.classList[1]);
 
-      renderDescriptionPage(findObject);
-    });
-  };
-const signedInOrNot=()=>{
-  let u=0;
-  users.forEach((ele,i)=>{
-    if(ele.signedIn===true){
-      return signedInUser=ele;
-      u=1
+    renderDescriptionPage(findObject);
+  });
+};
+const signedInOrNot = () => {
+  let u = 0;
+  users.forEach((ele, i) => {
+    if (ele.signedIn === true) {
+      return (signedInUser = ele);
+      u = 1;
     }
-  })
+  });
+};
+searchBtn.on("click", () => {
 
-}
-  searchBtn.on("click", () => {
-    renderAll()
-    if(searchBar.val()!==""){
+  if (searchBar.val() !== "") {
     const filterMovies = allFilm.filter((ele, i) => {
       return ele.title.toLowerCase().includes(searchBar.val().toLowerCase());
     });
-    apiFilm=filterMovies
+    apiFilm = filterMovies;
     if (filterMovies.length != 0) {
       renderHomePage();
-      pages.hide()
+      pages.hide();
       searchBar.val("");
-     
     } else {
       const noResult = $(`<div><h3>No Result</h3></div>`);
       searchPage.append(noResult);
@@ -270,9 +273,9 @@ const signedInOrNot=()=>{
       descriptionPage.hide();
       searchBar.val("");
       searchPage.show();
-      pages.hide()
+      pages.hide();
     }
-  }else{
+  } else {
     const noResult = $(`<div><h3>No Result</h3></div>`);
     searchPage.append(noResult);
     homePage.hide();
@@ -280,201 +283,199 @@ const signedInOrNot=()=>{
     descriptionPage.hide();
     searchBar.val("");
     searchPage.show();
-    pages.hide()
+    pages.hide();
   }
 });
-  goToHome.on("click", () => {
-    pages.html("");
-    pages.show()
-    moviesList.html("");
-    descriptionPage.hide();
-    favoritePage.hide();
-    homePage.show();
-   render()
-  });
+goToHome.on("click", () => {
+  pages.html("");
+  pages.show();
+  moviesList.html("");
+  descriptionPage.hide();
+  favoritePage.hide();
+  homePage.show();
+  render();
+});
 
-  goToFavorite.on("click", () => {
-    homePage.hide();
-    descriptionPage.hide();
-    favoritePage.html("");
-    favoritePage.show();
+goToFavorite.on("click", () => {
+  homePage.hide();
+  descriptionPage.hide();
+  favoritePage.html("");
+  favoritePage.show();
 
-    rendierFavorite();
+  rendierFavorite();
+});
+goToRegister.on("click", () => {
+  homePage.hide();
+  favoritePage.hide();
+  descriptionPage.hide();
+  signInPage.hide();
+  registerPage.show();
+  head.hide();
+});
+goToSignIn.on("click", () => {
+  homePage.hide();
+  favoritePage.hide();
+  descriptionPage.hide();
+  signInPage.show();
+  registerPage.hide();
+  head.hide();
+});
+goFromRegisterToHome.on("click", () => {
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+  pages.show();
+
+  homePage.show();
+  head.show();
+  registerPage.hide();
+});
+goFromSignInToHome.on("click", () => {
+  pages.show();
+  head.show();
+  homePage.show();
+  signInPage.hide();
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+});
+goFromRegisterToSignIn.on("click", () => {
+  hideShow();
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+});
+goFromSignInToRegester.on("click", () => {
+  registerPage.show();
+  signInPage.hide();
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+});
+fromRegisterToSignIn.on("click", () => {
+  hideShow();
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+});
+fromSignInToRegester.on("click", () => {
+  registerPage.show();
+  signInPage.hide();
+  emptyFieldS.hide();
+  emptyFieldD.hide();
+  userNotFound.hide();
+  wrongEmPass.hide();
+});
+registerBtn.on("click", () => {
+  if (
+    firstName.val() === "" ||
+    registerEmail.val() === "" ||
+    registerPssword.val() === "" ||
+    birthday.val() == "" ||
+    gender.val() === ""
+  ) {
+    console.log("test");
+    emptyFieldD.show();
+    emailExi.hide();
+  } else {
+    renderRegister(
+      users,
+      firstName.val(),
+      registerEmail.val(),
+      registerPssword.val(),
+      birthday.val(),
+      gender.val()
+    );
+    console.log(users);
+  }
+});
+signInBtn.on("click", () => {
+  if (signInEmail.val() === "" || signInpassword.val() === "") {
+    emptyFieldS.show();
+    userNotFound.hide();
+    wrongEmPass.hide();
+  } else {
+    renderSignIn(users, signInEmail.val(), signInpassword.val());
+  }
+});
+mode.on("change", () => {
+  if (mode.val() === "Light") {
+    body.css("background-color", "white", "color", "black");
+    head.css("background-color", "#281a44", "color", "black");
+    searchBar.css("background-color", "#67529597");
+    moviesList.css("color", "black");
+    filterBtn.css("color", "black");
+    aboutMovie.css("color", "black");
+  } else {
+    body.css("background-color", "black", "color", "white");
+    head.css("background-color", "rgba(38, 35, 35, 0.816)", "color", "white");
+    moviesList.css("color", "white");
+    filterBtn.css("color", "white");
+    searchBar.css("background-color", "hwb(0 14% 85% / 0.974)");
+    aboutMovie.css("color", "white");
+  }
+});
+const hideShow = (hide, show) => {
+  registerPage.hide();
+  signInPage.show();
+};
+
+const renderRegister = (users, fName, e, pass, birth, gen) => {
+  let u = 0;
+  users.forEach((ele, i) => {
+    if (ele.email === e) {
+      u = 1;
+      emailExi.show();
+      emptyFieldD.hide();
+    }
   });
-  goToRegister.on("click", () => {
-    homePage.hide();
-    favoritePage.hide();
-    descriptionPage.hide();
-    signInPage.hide();
-    registerPage.show();
-    head.hide();
-  });
-  goToSignIn.on("click", () => {
-    homePage.hide();
-    favoritePage.hide();
-    descriptionPage.hide();
+  if (u === 0) {
+    console.log(u);
+    users.push({
+      firstName: fName,
+      email: e,
+      password: pass,
+      birthday: birth,
+      gender: gen,
+      signedIn: false,
+    });
     signInPage.show();
     registerPage.hide();
-    head.hide();
-  });
-  goFromRegisterToHome.on("click", () => {
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-    pages.show()
-
-    homePage.show();
-    head.show();
-    registerPage.hide();
-  });
-  goFromSignInToHome.on("click", () => {
-    pages.show()
-    head.show();
-    homePage.show();
-    signInPage.hide();
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-  });
-  goFromRegisterToSignIn.on("click", () => {
-    hideShow();
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-  });
-  goFromSignInToRegester.on("click", () => {
-    registerPage.show();
-    signInPage.hide();
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-  });
-  fromRegisterToSignIn.on("click", () => {
-    hideShow();
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-  });
-  fromSignInToRegester.on("click", () => {
-    registerPage.show();
-    signInPage.hide();
-    emptyFieldS.hide()
-    emptyFieldD.hide()
-    userNotFound.hide()
-    wrongEmPass.hide()
-  });
-  registerBtn.on("click",()=>{
-    if(firstName.val()==="" ||registerEmail.val()===""
-    || registerPssword.val()==="" || birthday.val()=="" || gender.val()===""){console.log("test");
-      emptyFieldD.show()
-      emailExi.hide()
-    }else{
-      renderRegister(users,firstName.val(),registerEmail.val(),registerPssword.val(),birthday.val(),gender.val())
-   console.log(users);
-    }
-  })
-  signInBtn.on("click",()=>{
-    if(signInEmail.val()==="" || signInpassword.val()==="" ){
-      emptyFieldS.show()
-      userNotFound.hide()
-      wrongEmPass.hide()
-
-    }else{
-      renderSignIn(users,signInEmail.val(),signInpassword.val())
-    }
-  })
-  mode.on("change",()=>{
-    if (mode.val()==="Light"){
-      body.css("background-color","white","color","black")
-      head.css("background-color","#281a44","color","black")
-      searchBar.css("background-color","#67529597")
-      moviesList.css("color","black")
-      filterBtn.css("color","black")
-      aboutMovie.css("color","black")
-    }else{
-      body.css("background-color","black","color","white")
-      head.css("background-color","rgba(38, 35, 35, 0.816)","color","white")
-      moviesList.css("color","white")
-      filterBtn.css("color","white")
-      searchBar.css("background-color","hwb(0 14% 85% / 0.974)")
-      aboutMovie.css("color","white")
-
-
-    }
-  })
-  const hideShow = (hide,show) => {
- 
-
-    registerPage.hide();
-    signInPage.show();
-  };
-
-
-const renderRegister=(users,fName,e,pass,birth,gen)=>{
-  let u=0;
-users.forEach((ele,i)=>{
-  if(ele.email===e){
-    u=1;
-emailExi.show()
-emptyFieldD.hide()
-  }
-})
-if(u===0){
-  console.log(u);
-  users.push({
-    firstName:fName,
-    email:e,
-  password:pass,
-  birthday:birth,
-  gender:gen,
-  signedIn:false,
-})
-signInPage.show()
-registerPage.hide()
-  let toString = JSON.stringify(users);
-          localStorage.setItem("users", toString);
-  
-}
-
-}
-const renderSignIn=(users,signInEmail,signInpassword)=>{
-  let u=0;
-  if(users.length===0){
-    userNotFound.show()
-      wrong.hide()
-      emptyFieldS.hide()
-    
-  }
-  users.forEach((ele,i)=>{
-  if(ele.email===signInEmail && ele.password===signInpassword){
-    ele.signedIn=true;
-    let toString = JSON.stringify(users);
-          localStorage.setItem("users", toString);
-          goToFavorite.show()
-          homePage.show()
-          signInPage.hide()
-          head.show()
-          u=1;
-  }else{
-    ele.signedIn=false
     let toString = JSON.stringify(users);
     localStorage.setItem("users", toString);
   }
-  })
-  if(u===0 && users.length!=0){
-    wrong.show()
-    emptyFieldS.hide()
-    userNotFound.hide()
+};
+const renderSignIn = (users, signInEmail, signInpassword) => {
+  let u = 0;
+  if (users.length === 0) {
+    userNotFound.show();
+    wrong.hide();
+    emptyFieldS.hide();
   }
-}
-
-
-
-
-
-
+  users.forEach((ele, i) => {
+    if (ele.email === signInEmail && ele.password === signInpassword) {
+      ele.signedIn = true;
+      let toString = JSON.stringify(users);
+      localStorage.setItem("users", toString);
+      goToFavorite.show();
+      homePage.show();
+      signInPage.hide();
+      head.show();
+      u = 1;
+    } else {
+      ele.signedIn = false;
+      let toString = JSON.stringify(users);
+      localStorage.setItem("users", toString);
+    }
+  });
+  if (u === 0 && users.length != 0) {
+    wrong.show();
+    emptyFieldS.hide();
+    userNotFound.hide();
+  }
+};
